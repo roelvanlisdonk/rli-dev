@@ -3,15 +3,25 @@
 if($false) {
     
 
-    # Always set location and feature branch before executing git tasks
+    # Always set location before executing git tasks
     Set-Location "C:\Dev\rli-dev\angular"
     
+
     # Show status of current repository
     git status
+
 
     # Get latest sources for master branch
     git checkout "master"
     git pull --all
+
+
+    # Add new files for commit
+    git add .
+
+
+    # Commit changes
+    git commit -m "Add git.ps1"
 
 
     # To remove tracked local changes
