@@ -6,10 +6,11 @@ import { TaskListComponent } from './task-list/task-list.component';
   imports: [
     CommonModule
   ],
-  declarations: [TaskListComponent],
-  exports: [TaskListComponent],
+  declarations: [
+    TaskListComponent
+  ],
   entryComponents: [TaskListComponent]
 })
 export class ManualLazyModule {
-
+  static entry = TaskListComponent;
 }

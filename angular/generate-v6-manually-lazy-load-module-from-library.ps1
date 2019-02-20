@@ -19,6 +19,7 @@ cd "$wokspaceFolder"
 ng new skeleton --routing
 cd "$skeletonFolder"
 ng generate module wrapper-for-todo-manual-lazy
+# Now change the "wrapper-for-todo-manual-lazy" module, so it references "manual-lazy" module from the library "todo".
 ng build
 
 
@@ -30,3 +31,13 @@ ng build todo
 
 # Run incremental builds, when the library changes
 ng build todo --watch
+
+# Change the AppComponent, so it is able to load a module manualy
+
+cd "C:\Dev\rli-dev\angular\v6\manually-lazy-load-module-from-library\skeleton"
+ng serve -o
+
+# Describes how to dynamically load a component.
+# https://www.infragistics.com/community/blogs/b/infragistics/posts/how-to-load-component-dynamically-in-angular
+
+
