@@ -1,6 +1,8 @@
 
 When I was implementing manual lazy loading for a module in a Angular 6 project, I was getting the error:
 
+![](2019-02-20-21-01-06.png)
+
 ```
 ERROR Error: Uncaught (in promise): Error: Cannot find module 'src/app/wrapper/wrapper.module'
 Error: Cannot find module 'src/app/wrapper/wrapper.module'
