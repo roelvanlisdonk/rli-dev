@@ -16,12 +16,17 @@ if($false) {
     git pull --all
 
 
-    # Add new files for commit
+    # Add changes for commit
     git add .
 
 
     # Commit changes
-    git commit -m "Add git.ps1"
+    git commit -m "Updated git.ps1"
+
+    
+    # Push changes to remote and get remote changes
+    git push
+    git pull --all
 
 
     # To remove tracked local changes
