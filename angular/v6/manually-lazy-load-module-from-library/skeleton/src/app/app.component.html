@@ -1,10 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<button>Manually lazy load a module and component from a library.</button>
-
+<button (click)="loadToDoTaskList()">Manually lazy load a module and component from a library.</button>
+<div>Show component inside a ng-container:</div>
+<ng-container #container></ng-container>
+<br>
+<br>
+<br>
+<button (click)="addDynamicRoute()">Dynamically add a route</button>
+<br>
+<button routerLink="/dynamic">Show car from dynamic route in router-outlet</button>
+<br>
 <router-outlet></router-outlet>
-
-<div>Show component below:</div>
-<div class="placeholder">
-  <ng-container #container></ng-container>
-</div>
 

@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, SystemJsNgModuleLoader } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CarComponent } from './dynamic-routing/car/car.component';
+import { DynamicRoutingModule } from './dynamic-routing/dynamic-routing.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DynamicRoutingModule
   ],
   providers: [
     SystemJsNgModuleLoader

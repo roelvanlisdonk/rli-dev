@@ -15,9 +15,9 @@ Remove-Item -Path "$wokspaceFolder" -Recurse -Force
 
 
 mkdir "$wokspaceFolder" > $null
-cd "$wokspaceFolder"
+Set-Location "$wokspaceFolder"
 ng new skeleton --routing
-cd "$skeletonFolder"
+Set-Location "$skeletonFolder"
 ng generate module wrapper-for-todo-manual-lazy
 # Now change the "wrapper-for-todo-manual-lazy" module, so it references "manual-lazy" module from the library "todo".
 ng build
@@ -34,10 +34,26 @@ ng build todo --watch
 
 # Change the AppComponent, so it is able to load a module manualy
 
-cd "C:\Dev\rli-dev\angular\v6\manually-lazy-load-module-from-library\skeleton"
-ng serve -o
-
 # Describes how to dynamically load a component.
 # https://www.infragistics.com/community/blogs/b/infragistics/posts/how-to-load-component-dynamically-in-angular
 
 
+# To test for dynamic adding of routings, just add an angular module to the skeleton app, with one component.
+# Then dynamically add one route and make it work. 
+
+Set-Location "C:\Dev\rli-dev\angular\v6\manually-lazy-load-module-from-library\skeleton"
+ng generate module dynamic-routing
+ng generate component "dynamic-routing/car" --module dynamic-routing
+
+# Moet je voor PBI branch / PIMen?
+
+# To run the application
+
+## Separate terminal - Build the external todo library
+Set-Location "C:\Dev\rli-dev\angular\v6\manually-lazy-load-module-from-library\skeleton"
+ng build todo
+ng build todo --watch
+
+## Separate terminal - Run the skeleton application
+Set-Location "C:\Dev\rli-dev\angular\v6\manually-lazy-load-module-from-library\skeleton"
+ng serve -o
