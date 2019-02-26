@@ -16,5 +16,8 @@ import { CustomersRoutingModule } from './routing.module';
 })
 export class ManualLazyModule {
   static entry = TaskListComponent;
+  constructor() {
+    console.log("ManualLazyModule constructor!!");
+  }
 }
 

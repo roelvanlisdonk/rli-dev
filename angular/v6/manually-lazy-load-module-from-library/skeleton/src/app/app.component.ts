@@ -38,11 +38,12 @@ export class AppComponent implements OnInit {
 
   loadToDoTaskList() {
     this.loader.load('src/app/wrapper/wrapper.module#WrapperForTodoManualLazyModule').then((moduleFactory: NgModuleFactory<any>) => {
+      console.log("WrapperForTodoManualLazyModule loaded!");
       const moduleRef = moduleFactory.create(this.inj);
       const entryComponent = (<any>moduleFactory.moduleType).entry;
-      const compFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(entryComponent);
-      this.container.clear();
-      this.container.createComponent(compFactory);
+      // const compFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(entryComponent);
+      // this.container.clear();
+      // this.container.createComponent(compFactory);
     });
   }
 }
