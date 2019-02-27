@@ -42,8 +42,7 @@ dotnet restore --interactive
 
 After that you can use dotnet restore without manual authentication.
 
-
-
+Now if you open the .NET Core solution in Visual Studio it will also work and you don't have to do anything.
 
 
 
