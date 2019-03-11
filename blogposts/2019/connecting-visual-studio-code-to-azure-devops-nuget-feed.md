@@ -33,7 +33,7 @@ The name should really be the name of the feed, not some custom name.
 
 ![](2019-02-27-21-09-34.png)
 
-## Run dotnet restore once with --interactive to authenticate against the Azure DevOps feed
+## Run dotnet restore once inside project folder with --interactive to authenticate against the Azure DevOps feed
 We have to execute dotnet restore with --interactive once, to authenticate against the Azure DevOps feed.
 
 ```PowerShell
@@ -41,10 +41,10 @@ dotnet restore --interactive
 ```
 
 After that you can use dotnet restore without manual authentication.
-
 Now if you open the .NET Core solution in Visual Studio it will also work and you don't have to do anything.
 
 
+NOTE: if a dialog popups inside Visual Studio, use the dotnet restore --interactive again to re-authenticate.
 
 
 
