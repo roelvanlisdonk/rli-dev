@@ -29,3 +29,11 @@ I use the following plugins in vscode:
 | timonwong.shellcheck | ? | ? |
 | yzhang.markdown-all-in-one | ? | ? |
 
+
+
+Angular inline
+Color highlighting and code completion inside TypeScript template property.
+
+Coverage Gutters
+Show code coverage of current file inside the code file itself.
+
