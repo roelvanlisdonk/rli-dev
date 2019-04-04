@@ -2,10 +2,16 @@
 # The git tasks are surrounded in a if statement to prevent the tasks from running, when we accidentally press F5.
 if($false) {
     
-
-    # Always set location before executing git tasks
-    Set-Location "C:\Dev\rli-dev\angular"
+    # Generate Angular app
+    Set-Location "C:\Dev\rli-dev\angular\v7"
+    ng new learn-ngrx --routing
+    Set-Location "C:\Dev\rli-dev\angular\v7\learn-ngrx"
     
+    # To check if everything works, run ng serve now:
+    ng serve -o
+
+    # Add ngrx
+    npm install ngrx --save
 
     # Show status of current repository
     git status
