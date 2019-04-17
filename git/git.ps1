@@ -42,6 +42,10 @@ function DiscardLocalChanges {
     git reset --hard
 }
 
+function GenerateNewAngularApp {
+    ng new my-first-project
+}
+
 function GetLatesVersionForCurrentBranch {
     git pull --all
     git status
@@ -59,6 +63,10 @@ function GetLatestVersionForMaster {
     git status
 }
 
+function ListGlobalNpmPackages {
+    npm list -g --depth 0
+}
+
 function MergeMasterToFeatureBranch {
     git checkout "master"
     git pull --all
@@ -72,6 +80,11 @@ function MergeMasterToFeatureBranch {
 }
 
 function UpdateNpmPackages {
-    # check for outdated packages
+    # Check for outdated local packages 
     npm outdated --depth=0
+    npm update
+
+    # NPM update global
+    npm outdated -g --depth=0
+    npm update -g
 }
