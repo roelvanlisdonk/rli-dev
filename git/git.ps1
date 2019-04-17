@@ -63,6 +63,14 @@ function GetLatestVersionForMaster {
     git status
 }
 
+function KillProcessByPortNumber {
+    # Find process running on port 4200.
+    netstat -ano | findstr :4200
+    
+    # Kill the process by PID.
+    taskkill /PID 17524 /F
+}
+
 function ListGlobalNpmPackages {
     npm list -g --depth 0
 }
