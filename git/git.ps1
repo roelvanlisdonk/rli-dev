@@ -9,13 +9,40 @@ Set-Location "C:\Dev\rli-dev"
 $branch_name = "feature/my-feature-branch"
 Write-Host "branch nane: $branch_name"
 
-function GetLatesVersionForCurrentBranch {
+function CreateFeatureBranch {
+    git checkout "master"
     git pull --all
-    git status
+    git checkout -b $branch_name, "master"
+    git push --set-upstream origin $branch_name
+
+    # Check if all is working correctly
+    npm install
+    npm run lint:fix
+    npm run test:ci
+
+    # Run production build
+    npm run start:prod:local
 }
 
-function GetLatestVersionForMaster {
-    git checkout "master"
+function DeleteLocalBranches {
+    $branches = @(
+        "feature/my-feature-branch-1"
+        , "feature/my-feature-branch-2"
+    )
+    foreach ($branch in $branches) {
+        git branch -d $branch
+    }
+}
+
+function DeleteRemoteBranch {
+    git push -d origin $branch_name
+}
+
+function DiscardLocalChanges {
+    git reset --hard
+}
+
+function GetLatesVersionForCurrentBranch {
     git pull --all
     git status
 }
@@ -26,11 +53,10 @@ function GetLatestVersionForFeatureBranch {
     git status
 }
 
-function CreateFeatureBranch {
+function GetLatestVersionForMaster {
     git checkout "master"
     git pull --all
-    git checkout -b $branch_name, "master"
-    git push --set-upstream origin $branch_name
+    git status
 }
 
 function MergeMasterToFeatureBranch {
@@ -45,21 +71,7 @@ function MergeMasterToFeatureBranch {
     git status
 }
 
-function DeleteLocalBranches {
-    $branches = @(
-        "feature/my-feature-branch-1"
-    ,   "feature/my-feature-branch-2"
-    )
-    foreach($branch in $branches) {
-        git branch -d $branch
-    }
+function UpdateNpmPackages {
+    # check for outdated packages
+    npm outdated --depth=0
 }
-
-function DeleteRemoteBranch {
-    git push -d origin $branch_name
-}
-
-function DiscardLocalChanges {
-    git reset --hard
-}
-
