@@ -1,6 +1,16 @@
+function checkAndUpdateOutdatedNpmPackages {
+    # Local packages
+    npm outdated -g --depth=0
+    npm update
+
+    # Global packages
+    npm outdated -g --depth=0
+    npm update -g
+}
+
 
 # The git tasks are surrounded in a if statement to prevent the tasks from running, when we accidentally press F5.
-if($false) {
+if ($false) {
     
     # Generate Angular app
     Set-Location "C:\Dev\rli-dev\angular\v7"
@@ -24,15 +34,15 @@ if($false) {
 
     # Sync work with remote
     
-        # Add changes for commit
-        git add .
+    # Add changes for commit
+    git add .
 
-        # Commit changes
-        git commit -m "Updated git.ps1"
+    # Commit changes
+    git commit -m "Updated git.ps1"
         
-        # Push changes to remote and get remote changes
-        git push
-        git pull --all
+    # Push changes to remote and get remote changes
+    git push
+    git pull --all
 
 
     # To remove tracked local changes
