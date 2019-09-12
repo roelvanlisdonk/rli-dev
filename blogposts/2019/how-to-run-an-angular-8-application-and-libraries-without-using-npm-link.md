@@ -1,4 +1,5 @@
-This post assumes you have an Angular application consuming multiple npm
+This post assumes you have an Angular application, consuming multiple Angular library npm packages found in different repositories from a private npm feed.
+This can for example occur, when you divide a large Angular application into feature areas, where each feature area has its own git repository.
 
 # Npm link
 
