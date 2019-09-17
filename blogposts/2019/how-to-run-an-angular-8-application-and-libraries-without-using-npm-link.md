@@ -1,5 +1,8 @@
-This post assumes you have an Angular application, consuming multiple Angular library npm packages found in different repositories from a private npm feed.
-This can for example occur, when you divide a large Angular application into feature areas, where each feature area has its own git repository.
+# Intro
+
+This post assumes you have an Angular application, consuming multiple Angular library npm packages found in different repositories from a npm feed. This can for example occur, when you divide a large Angular application into feature areas, where each feature area has its own git repository.
+
+Using multiple git repositories for one application has several disadvantages and this blog post will not go into the pros and cons of using multiple git repositories vs a mono git repository, it just assumes you are in a situation where they are using multiple git repositories for one application.
 
 # Npm link
 
@@ -41,5 +44,49 @@ NOTES
   This also means that, when you symlink code inside the "projects" directory in the Angular application, you should do it with the same names, so
   projects/@my-company/my-lib1 should link to the Angular library source code directory.
 
-Example project
-cd
+## Example project
+
+We are going to create a gigantic todo application, that will consist of the following git repositories.
+
+- todo-components (contains an Angular library containing dumb components)
+- todo-helpers (contains an Angular library containing some helper functions)
+- todo-services (contains an Angular library, that uses code from the todo-helpers git repository)
+- todo-reports (contains an Angular library, that contains all code for feature area "reports")
+- todo-list (contains an Angular library, that contains all code for feature area "list")
+- todo (contains an Angular application that uses the code from all other git repositories, it will lazy load the Angular modules found in the feature areas)
+
+npm install -g @angular/cli
+mkdir C:\Dev
+ng new todo --enable-ivy
+
+-- Would you like to add Angular routing? y
+-- Which stylesheet format would you like to use? SCSS
+
+ng generate library @todo/components
+ng generate library @todo/helpers
+ng generate library @todo/list
+ng generate library @todo/reports
+ng generate library @todo/services
+
+cd .\todo
+ng serve --open
+
+## Change code
+
+Change some code, so the todo application will use the todo services and the todo services will use the todo helpers.
+
+## Move code from the projects folder to "separate git repositories"
+
+Move code from the todo helpers and todo service to a directory as siblings to the todo application directory, this will resemble the code coming from separate git repositories.
+
+## Run application with npm link
+
+To show the improvements of symlink we will first run the application with npm link.
+
+## Run application with symlink
+
+Now we add the npm scripts and run the application with symlink.
+
+# Resources
+
+The complete code can be found at:
