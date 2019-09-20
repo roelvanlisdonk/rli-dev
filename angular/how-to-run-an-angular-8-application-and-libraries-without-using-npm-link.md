@@ -44,6 +44,56 @@ NOTES
   This also means that, when you symlink code inside the "projects" directory in the Angular application, you should do it with the same names, so
   projects/@my-company/my-lib1 should link to the Angular library source code directory.
 
+## Angular.json
+
+Build and test should contain:
+
+```
+{
+  ...
+  "projects": {
+    "my-app": {
+      ...
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            ...
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects",
+                "node_modules"
+              ]
+            }
+            ...
+         "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            ...
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects",
+                "node_modules"
+              ]
+            }
+```
+
+## ng-package.json
+
+The ng-package.json of an Angular library should contain:
+
+```
+{
+  ...
+
+  "lib": {
+    ...
+
+    "styleIncludePaths": [
+      "../../node_modules"
+    ],
+```
+
 ## Example project
 
 We are going to create a gigantic todo application, that will consist of the following git repositories.
