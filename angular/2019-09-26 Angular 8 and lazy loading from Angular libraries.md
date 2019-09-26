@@ -15,7 +15,7 @@ https://github.com/angular/angular-cli/issues/14763
 
 When you want to lazy load a Angular module from an Angular library, without using the router, but want to use the import(...).then(...) syntax, you can use:
 
-import(/_ webpackChunkName: "my-lib" _/ 'my-lib')
+import('@drp/cfm')
 .then((mod) => mod.MyLibModule)
 .then((loadedModule) => {
 if (loadedModule instanceof NgModuleFactory) {
