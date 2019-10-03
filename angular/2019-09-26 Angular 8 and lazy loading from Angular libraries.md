@@ -1,3 +1,6 @@
+Nice blog post on lazy loading modules and components:
+https://indepth.dev/asynchronous-modules-and-components-in-angular-ivy/
+
 NOTE: From the Angular team:
 libraries should not have route declarations. Routing and lazy loading is meant not be used at application level.
 https://github.com/angular/angular/issues/31893#issuecomment-516615243
