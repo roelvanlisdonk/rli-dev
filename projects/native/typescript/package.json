@@ -1,0 +1,14 @@
+{
+  "name": "native-type-script",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "12.7.7",
+    "typescript": "3.6.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "outDir": "dist",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5"
+  }
+}
