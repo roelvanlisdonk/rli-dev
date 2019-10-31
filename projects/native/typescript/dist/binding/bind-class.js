@@ -1,0 +1,1 @@
+//# sourceMappingURL=bind-class.js.map

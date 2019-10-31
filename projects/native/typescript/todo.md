@@ -1,4 +1,4 @@
-Notes
+# Notes on front end
 
 - Store data should use atomic data
 - car1.color.id
@@ -23,9 +23,21 @@ Normally all 'communication' between 'components' will be done via the store.
   - subscribe
 
 * Add helper.ts
+* Use a TypeScript node development backend server with breakpoint support in vscode
+
+- https://medium.com/aherforth/how-to-get-auto-restart-and-breakpoint-support-with-typescript-and-node-5af589dd8687
+
+* Load modules in browser today
+  - https://philipwalton.com/articles/using-native-javascript-modules-in-production-today/
 * Add mock backend development server with hot reload:
   - https://medium.com/@edward17/node-js-typescript-webpack-js-hot-module-replacement-express-js-8d92dad60119
 * Add generic 'css' variables file
 * Add npm run app
   - This will start the mock backend development server.
-*
+
+# Notes on back end
+
+- We should have a 'mock' backend server that server \*.json files on all /api/ requests.
+- This data will be cached in the TypeScript node app
+- You can register put and post and delete functions to alter the cache.
+- There will be a /api/reset function, that will reset the cache
