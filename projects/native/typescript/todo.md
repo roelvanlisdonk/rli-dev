@@ -37,6 +37,16 @@ Normally all 'communication' between 'components' will be done via the store.
 
 # Notes on back end
 
+- Backend mock server can be created by: nodemon and ts-node
+  https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change
+  nodemon is used to check if files are changed
+  ts-node is used to run a node application and compile TypeScript on the fly, so you don't have to recompile the whole
+  project every time. It will automatically restart your TypeScript application when a file changes?
+
+  There's also ts-node-dev, a modified version of node-dev using ts-node for compilation and won't restart the process on file change.
+
+  This is very handy, because then the state will be preserved, it will be much faster.
+
 - We should have a 'mock' backend server that server \*.json files on all /api/ requests.
 - This data will be cached in the TypeScript node app
 - You can register put and post and delete functions to alter the cache.
