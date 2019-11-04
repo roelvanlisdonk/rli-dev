@@ -1,15 +1,15 @@
 import { add } from './store';
-var fragment = document.createDocumentFragment();
+const fragment = document.createDocumentFragment();
 addHeaderTo(fragment);
 addMainTo(fragment);
 add();
 document.body.appendChild(fragment);
 function addActionButtonTo(fragment) {
-    var actionButton = document.createElement('button');
+    const actionButton = document.createElement('button');
     actionButton.innerText = 'Execute';
     actionButton.style.cursor = 'pointer';
     actionButton.style.marginTop = '20px';
-    actionButton.onclick = function () {
+    actionButton.onclick = () => {
         // textElement.style.color = '#00FF00';
     };
     fragment.appendChild(actionButton);
@@ -17,9 +17,9 @@ function addActionButtonTo(fragment) {
 function addHeaderTo(fragment) { }
 function addMainTo(fragment) { }
 function addTitleTo(fragment) {
-    var title = 'This is a title.';
-    console.log("title: " + title);
-    var textElement = document.createElement('div');
+    const title = 'This is a title.';
+    console.log(`title: ${title}`);
+    const textElement = document.createElement('div');
     textElement.innerText = title;
     textElement.style.color = '#FF0000';
     fragment.appendChild(textElement);

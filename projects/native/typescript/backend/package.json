@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node ./dist/server.js"
+    "start": "ts-node ./src/server.ts",
+    "start-prod": "node ../dist/backend/src/server.js"
   },
   "keywords": [],
   "author": "Roel van Lisdonk",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/express": "4.17.2",
     "@types/node": "12.12.5",
+    "ts-node": "8.4.1",
     "typescript": "3.6.4"
   }
 }
