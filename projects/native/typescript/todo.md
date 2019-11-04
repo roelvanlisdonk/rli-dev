@@ -37,6 +37,8 @@ Normally all 'communication' between 'components' will be done via the store.
 
 # Notes on back end
 
+- Setup project for frontend and backend TypeScript development.
+  https://dev.to/nuclight/setting-up-fullstack-typescript-app-1bbe
 - Backend mock server can be created by: nodemon and ts-node
   https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change
   nodemon is used to check if files are changed
@@ -51,3 +53,27 @@ Normally all 'communication' between 'components' will be done via the store.
 - This data will be cached in the TypeScript node app
 - You can register put and post and delete functions to alter the cache.
 - There will be a /api/reset function, that will reset the cache
+
+# Folder structure
+
+I think I want the following folder structure:
+
+- dist
+  - contains backend and frontend JavaScript code
+  - server will use these source to run
+  - browser will use the files from this folder to show the front-end.
+- backend
+  - src
+    - server.ts // is the entry point for the server
+  - package.json
+  - tsconfig.json
+  - tslint
+- frontend
+  - src
+    - app.ts
+    - index.html // is the entry point for the UI.
+  - package.json
+  - tsconfig.json
+  - tslint
+- package.json
+  - this will contain only npm run scripts

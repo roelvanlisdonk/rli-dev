@@ -2,6 +2,10 @@
 
 Is used to format multiple files in a folder.
 
+# JS Refactor
+
+I use it to change a literal string concatenation to a string template literal
+
 I use the following plugins in vscode:
 
 | Name                                  | Title | Description |
