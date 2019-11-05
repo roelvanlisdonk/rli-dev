@@ -1,0 +1,17 @@
+{
+  "name": "native-type-script",
+  "version": "1.0.0",
+  "description": "This project contains a native TypeScript frontend and backend.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build-backend": "cd backend && tsc",
+    "build-frontend": "cd frontend && tsc",
+    "postbuild": "copyfiles package.json dist/backend && cd dist/backend && npm install --only=production",
+    "start": "ts-node ./backend/src/server.ts",
+    "start-prod": "node ../dist/backend/src/server.js"
+  },
+  "keywords": [],
+  "author": "Roel van Lisdonk",
+  "license": "ISC"
+}

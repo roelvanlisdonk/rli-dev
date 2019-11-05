@@ -1,4 +1,4 @@
-import { add } from './store';
+import { add } from './store/store';
 
 const fragment = document.createDocumentFragment();
 addHeaderTo(fragment);

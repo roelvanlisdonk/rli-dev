@@ -1,10 +1,6 @@
 {
-  "name": "native-type-script",
+  "name": "native-type-script-frontend",
   "version": "1.0.0",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
   "private": true,
   "dependencies": {},
   "devDependencies": {

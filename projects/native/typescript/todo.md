@@ -38,8 +38,11 @@ Normally all 'communication' between 'components' will be done via the store.
 # Notes on back end
 
 - Setup project for frontend and backend TypeScript development.
-  https://dev.to/nuclight/setting-up-fullstack-typescript-app-1bbe
+- Use native node instead of express - https://www.alexkras.com/simple-https-test-server-using-node-js/
+- Make debugging work in vscode for backend
+  - https://code.visualstudio.com/docs/typescript/typescript-debugging
 - Backend mock server can be created by: nodemon and ts-node
+  https://dev.to/nuclight/setting-up-fullstack-typescript-app-1bbe
   https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change
   nodemon is used to check if files are changed
   ts-node is used to run a node application and compile TypeScript on the fly, so you don't have to recompile the whole
