@@ -8,7 +8,10 @@ const port = 3003;
 // Init express
 const app = express();
 exports.app = app;
-const frontendDir = path.join(__dirname, '../../frontend/src');
+let frontendDir = path.join(__dirname, '../../frontend/src');
+if (!__dirname.endsWith('/dist/backend/src')) {
+    frontendDir = path.join(__dirname, '../../dist/frontend/src');
+}
 console.log(`frontendDir: ${frontendDir}.`);
 app.get('*', (req, res) => {
     console.log(`get url: ${req.url}.`);
@@ -23,9 +26,13 @@ app.listen(port, () => {
 function getFileName(requestUrl) {
     const spaEntry = 'index.html';
     const urlParts = url.parse(requestUrl);
-    const pathName = urlParts.pathname;
+    let pathName = urlParts.pathname;
     if (!pathName || pathName === '/') {
         return spaEntry;
+    }
+    // Fix for map files, loading ts files
+    if (pathName.startsWith('/frontend/')) {
+        pathName = `..${pathName}`;
     }
     const fullFilePath = path.join(frontendDir, pathName);
     if (fs.existsSync(fullFilePath)) {

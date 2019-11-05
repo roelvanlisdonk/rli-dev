@@ -56,6 +56,8 @@ Normally all 'communication' between 'components' will be done via the store.
 - This data will be cached in the TypeScript node app
 - You can register put and post and delete functions to alter the cache.
 - There will be a /api/reset function, that will reset the cache
+- Check if we can use solution tsconfig.json file, so we can compile the whole project just with want tsc command.
+  - http://www.typescriptlang.org/docs/handbook/project-references.html#tsc--b-commandline
 
 # Folder structure
 
