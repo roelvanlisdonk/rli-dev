@@ -18,8 +18,13 @@ function addActionButtonTo(fragment: DocumentFragment) {
   };
   fragment.appendChild(actionButton);
 }
-function addHeaderTo(fragment: DocumentFragment) {}
-function addMainTo(fragment: DocumentFragment) {}
+function addHeaderTo(fragment: DocumentFragment) {
+  addTitleTo(fragment);
+}
+function addMainTo(fragment: DocumentFragment) {
+  addActionButtonTo(fragment);
+  addTitleTo(fragment);
+}
 function addTitleTo(fragment: DocumentFragment) {
   const title = 'This is a title.';
   console.log(`title: ${title}`);

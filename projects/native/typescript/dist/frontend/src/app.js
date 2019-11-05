@@ -1,4 +1,4 @@
-import { add } from './store';
+import { add } from './store/store';
 const fragment = document.createDocumentFragment();
 addHeaderTo(fragment);
 addMainTo(fragment);
@@ -14,8 +14,13 @@ function addActionButtonTo(fragment) {
     };
     fragment.appendChild(actionButton);
 }
-function addHeaderTo(fragment) { }
-function addMainTo(fragment) { }
+function addHeaderTo(fragment) {
+    addTitleTo(fragment);
+}
+function addMainTo(fragment) {
+    addActionButtonTo(fragment);
+    addTitleTo(fragment);
+}
 function addTitleTo(fragment) {
     const title = 'This is a title.';
     console.log(`title: ${title}`);
