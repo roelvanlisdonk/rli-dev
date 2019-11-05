@@ -8,9 +8,15 @@ const app: express.Application = express();
 
 const frontendDir = path.join(__dirname, '../../dist/frontend/src');
 
-app.get('*', (_, res: express.Response) => {
-  console.log('send index.html');
-  res.sendFile('index.html', { root: frontendDir });
+app.get('*', (request: express.Request, response: express.Response) => {
+  const url = request.url;
+  console.log(`get url: ${url}.`);
+  const regEx = /\.(?!\/).*$/;
+  if (regEx.test(url)) {
+    // TODO return file.
+  } else {
+    response.sendFile('index.html', { root: frontendDir });
+  }
 });
 
 // Start listening to requests.
