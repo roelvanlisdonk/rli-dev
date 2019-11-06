@@ -1,3 +1,22 @@
+# TODO
+
+- Make TypeScript transpile to JavaScript in same folder
+  - This will increase development speed, because no files have to be copied, when a file changes (not even when an image is added or something else)
+  - In the future we will create a separate publish process and a npm run start-prod, so we can check if things in production will work.
+- Make \*.map files work, so we can debug TypeScript on the frontend.
+- Check if using ts-node-dev for debugging speeds up the debugging process, because currently it is taking long to start.
+  - There is a stackoverflow person, saying he is able to use ts-node-dev to restart debug process, when file changes, only make sure you are not on a breakpoint when saving a file
+    - edit and automatically restart debug process:
+    - https://github.com/whitecolor/ts-node-dev/issues/9
+  - https://medium.com/@dupski/debug-typescript-in-vs-code-without-compiling-using-ts-node-9d1f4f9a94a
+- Remove express from backend and use native 'http2' module.
+- Make using a npm module in the frontend work
+- Make http2 work in backend.
+- Make frontend javascript files, contain content hash code in filename for cache busting
+- Make a separate publish process and a npm run start-prod
+- Publish to Azure devops
+- Publish to Amazone
+
 # Notes on front end
 
 - Store data should use atomic data
