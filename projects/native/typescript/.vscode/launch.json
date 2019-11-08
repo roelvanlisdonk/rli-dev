@@ -10,7 +10,7 @@
       "name": "Debug server",
       "preLaunchTask": "npm: build",
       "program": "${workspaceFolder}\\backend\\src\\server.ts",
-      "outFiles": ["${workspaceFolder}/dist/backend/src/**/*.js"]
+      "outFiles": ["${workspaceFolder}/backend/src/**/*.js"]
     }
   ]
 }

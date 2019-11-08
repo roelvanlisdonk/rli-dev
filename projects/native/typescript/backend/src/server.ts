@@ -8,10 +8,10 @@ const port = 3003;
 // Init express
 const app: express.Application = express();
 
-let frontendDir = path.join(__dirname, '../../frontend/src');
-if (!__dirname.endsWith('/dist/backend/src')) {
-  frontendDir = path.join(__dirname, '../../dist/frontend/src');
-}
+const frontendDir = path.join(__dirname, '../../frontend/src');
+// if (!__dirname.endsWith('/dist/backend/src')) {
+//   frontendDir = path.join(__dirname, '../../dist/frontend/src');
+// }
 console.log(`frontendDir: ${frontendDir}.`);
 
 app.get('*', (req: express.Request, res: express.Response) => {
@@ -25,7 +25,7 @@ app.get('*', (req: express.Request, res: express.Response) => {
 
 // Start listening to requests.
 app.listen(port, () => {
-  console.log(`Local mock backend listening on port ${port}!!!`);
+  console.log(`Local mock backend listening on port ${port}!!!!!`);
 });
 
 function getFileName(requestUrl: string): string {

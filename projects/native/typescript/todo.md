@@ -1,8 +1,13 @@
 # TODO
 
-- Make TypeScript transpile to JavaScript in same folder
-  - This will increase development speed, because no files have to be copied, when a file changes (not even when an image is added or something else)
-  - In the future we will create a separate publish process and a npm run start-prod, so we can check if things in production will work.
+- Reload browser
+- In v1 we will just use a websocket on the server and client to refresh the browser, when TypeScript frontend code transpilation is done.
+- When the server restarts, because of a server TypeScript code change, we will have to restore the connection to the browser.
+
+* we can always have a node-mon process on the server, that when a static file, like _.html or _.css changes, the page reloads?
+
+- In the future we will create a separate publish process and a npm run start-prod, so we can check if things in production will work.
+
 - Make \*.map files work, so we can debug TypeScript on the frontend.
 - Check if using ts-node-dev for debugging speeds up the debugging process, because currently it is taking long to start.
   - There is a stackoverflow person, saying he is able to use ts-node-dev to restart debug process, when file changes, only make sure you are not on a breakpoint when saving a file
@@ -16,6 +21,12 @@
 - Make a separate publish process and a npm run start-prod
 - Publish to Azure devops
 - Publish to Amazone
+
+# .NET Core
+
+Use this post to recompile .net core server when code changes:
+dotnet watch run
+https://weblog.west-wind.com/posts/2019/May/18/Live-Reloading-Server-Side-ASPNET-Core-Apps
 
 # Notes on front end
 

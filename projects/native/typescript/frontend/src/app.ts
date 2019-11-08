@@ -9,12 +9,14 @@ add();
 document.body.appendChild(fragment);
 
 function addActionButtonTo(fragment: DocumentFragment) {
+  let counter = 100;
   const actionButton = document.createElement('button');
-  actionButton.innerText = 'Execute';
+  actionButton.innerText = 'Execute v4';
   actionButton.style.cursor = 'pointer';
   actionButton.style.marginTop = '20px';
   actionButton.onclick = () => {
-    // textElement.style.color = '#00FF00';
+    counter += 20;
+    actionButton.style.width = `${counter}px`;
   };
   fragment.appendChild(actionButton);
 }
