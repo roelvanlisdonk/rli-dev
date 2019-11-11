@@ -11,14 +11,14 @@
     "noImplicitThis": true, // Raise error on this expressions with an implied any type.
     "noUnusedLocals": true, // Report errors on unused locals.
     "noUnusedParameters": true, // Report errors on unused parameters.
-    "module": "esnext",
+    "module": "commonjs", // TODO: change back to esnext
     "moduleResolution": "node", // We are running on node, so we also use the node module resolution.
     "strictBindCallApply": true, // Enable stricter checking of the bind, call, and apply methods on functions.
     "strictFunctionTypes": true, // Disable bivariant parameter checking for function types.
     "strictPropertyInitialization": true, // Ensure non-undefined class properties are initialized in the constructor. This option requires --strictNullChecks be enabled in order to take effect.
     "strictNullChecks": true, // In strict null checking mode, the null and undefined values are not in the domain of every type and are only assignable to themselves and any (the one exception being that undefined is also assignable to void).
     "sourceMap": true, // Generate source maps, so we can debug on the server.
-    "target": "es2018"
+    "target": "es6" // TODO: change back to es2018
   },
   "include": ["src/**/*"]
 }

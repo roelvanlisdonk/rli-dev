@@ -35,3 +35,11 @@ function addTitleTo(fragment: DocumentFragment) {
   textElement.style.color = '#FF0000';
   fragment.appendChild(textElement);
 }
+
+export function thisFunctionWillCallSetTimeout(fn: Function) {
+  console.log('thisFunctionWillCallSetTimeout');
+  setTimeout(() => {
+    console.log('inside setTimeout');
+    fn();
+  }, 20);
+}
