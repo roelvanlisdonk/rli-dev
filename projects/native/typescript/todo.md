@@ -4,18 +4,19 @@
 
 Use npm-run-all to execute the following scripts in parallel
 
-//
-
 - "frontend-watch": "tsc -w"
 - "refresh-browser-on-frontend-code-change": "ts-node-dev refresh-browser.ts"
+
   - Watch on frontend/tsconfig.tsbuildinfo and frontend/\*_/_.html
   - call http('localhost:3003/refreshBrowser'), when the watch fires.
-- "pre-launch-task": "npm-run-all frontend-watch refresh-browser-on-frontend-code-change" // Used in launch.json - preLaunchTask
+    <br>
 
-// By default I want to start in debugging.
+- "pre-launch-task": "npm-run-all frontend-watch refresh-browser-on-frontend-code-change start-backend open-browser" // Used in launch.json - preLaunchTask
+  <br>
 
 - "open-browser": "open(http://localhost:3003)"
 - "start": "npm-run-all start-backend open-browser"
+  // By default I want to start in debugging.
 - "start-backend": "ts-node-dev --inspect=4321 --project ./backend/tsconfig.json --respawn --transpileOnly ./backend/src/server.ts",
 
 <br>
@@ -24,6 +25,23 @@ Use npm-run-all to execute the following scripts in parallel
 ## Retry EventSource
 
 When the server restarts the browser
+
+<br>
+<br>
+
+## Add render functions
+
+The render function returns a document fragment, so it can add multiple elements
+App starts with
+const app = render({
+tag: 'app',
+disabled: '',
+disabled: {
+deps: {},
+bind: (deps) => {}
+}
+});
+root.append()
 
 ## Add file watcher to node server
 
