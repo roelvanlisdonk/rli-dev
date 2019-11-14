@@ -14,6 +14,19 @@ const frontendDir = path.join(__dirname, '../../frontend/src');
 // }
 console.log(`frontendDir: ${frontendDir}.`);
 
+app.get('/countdown', function(_, res: express.Response) {
+  console.log('countdown called');
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive'
+  });
+  // This post describes we have to first send a newline before we can send requests:
+  // https://jasonbutz.info/2018/08/server-sent-events-with-node/
+  res.write('\n');
+  countdown(res, 10);
+});
+
 app.get('*', (req: express.Request, res: express.Response) => {
   console.log(`get url: ${req.url}.`);
 
@@ -22,6 +35,15 @@ app.get('*', (req: express.Request, res: express.Response) => {
 
   res.sendFile(file, { root: frontendDir });
 });
+
+function countdown(res: express.Response, count: number) {
+  res.write('data: ' + count + '\n\n');
+  if (count) {
+    setTimeout(() => countdown(res, count - 1), 10000);
+  } else {
+    res.end();
+  }
+}
 
 // Start listening to requests.
 app.listen(port, () => {

@@ -1,5 +1,59 @@
 # TODO
 
+## NPM Scripts
+
+Use npm-run-all to execute the following scripts in parallel
+
+//
+
+- "frontend-watch": "tsc -w"
+- "refresh-browser-on-frontend-code-change": "ts-node-dev refresh-browser.ts"
+  - Watch on frontend/tsconfig.tsbuildinfo and frontend/\*_/_.html
+  - call http('localhost:3003/refreshBrowser'), when the watch fires.
+- "pre-launch-task": "npm-run-all frontend-watch refresh-browser-on-frontend-code-change" // Used in launch.json - preLaunchTask
+
+// By default I want to start in debugging.
+
+- "open-browser": "open(http://localhost:3003)"
+- "start": "npm-run-all start-backend open-browser"
+- "start-backend": "ts-node-dev --inspect=4321 --project ./backend/tsconfig.json --respawn --transpileOnly ./backend/src/server.ts",
+
+<br>
+<br>
+
+## Retry EventSource
+
+When the server restarts the browser
+
+## Add file watcher to node server
+
+To minimize external dependencies / tooling used, we will watch changes to the frontend files,
+inside the node server.
+https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/
+We can use child_process to execute tsc -w and output the logging to the console.
+
+<br>
+<br>
+
+## Deep paths as selectors in TypeScript
+
+https://stackoverflow.com/questions/45372227/how-to-implement-typescript-deep-partial-mapped-type-not-breaking-array-properti
+
+```
+const state : {
+  task: {
+    some: {
+      color: string
+    }
+  }
+}
+
+const task = select('task.some.color')
+
+el.display = bind(task, ()=> 'block')
+
+```
+
 - Reload browser
 - In v1 we will just use a websocket on the server and client to refresh the browser, when TypeScript frontend code transpilation is done.
 - When the server restarts, because of a server TypeScript code change, we will have to restore the connection to the browser.
