@@ -33,15 +33,78 @@ When the server restarts the browser
 
 The render function returns a document fragment, so it can add multiple elements
 App starts with
+
+```TypeScript
+import row from '../../styles/row';
+import column from '../../styles/column';
+
+// Advise name your general classes, so not .row, but .a-row (application row) or ds-row (design system row).
+// Classes specific to a component should be registered and will always start with the tagName, e.g. app-green.
+// This prevents styles from classes bleeding into child components.
+// This will also make shore that you can see easily see, what classes are use where.
+
+// Advise always use classes, don't use css 'selectors', because that will byte you in the end.
+// Css classes is a bit more verbose in the html, but it makes it really clear, where the styles are coming from.
+
+const tagName = 'app'
+const green = registerCssClass(app, 'green', { paddingLeft: '10px'; });
+// This will register a class app-green, yes I know this is a little bit verbose in the html,
+// but I think this is the best trade-off we can make, to not interfere with child elements.
+
+
 const app = render({
-tag: 'app',
-disabled: '',
-disabled: {
-deps: {},
-bind: (deps) => {}
-}
+  tag: tagName,
+  children: [
+    div({ css: row, children: [
+      div({ css: [column], text: get(car1, fullName), display: when(car1, isGreen)}),
+      div({ css: [column, green], text: get(car1, fullName, ['type', 'name']), display: when(car1, isBmw)}),
+      div({ css: [get(car1, color)]}),
+      personList(persons, { css: [column] }) // This will only overwrite the css class column.
+    ]})
+  ]
 });
-root.append()
+root.append(app);
+
+
+function color(car: Car): CssClass {
+  if(car.name === 'BMW') {
+    return green;
+  }
+
+  return normal;
+}
+
+
+
+function fullName(car: Car) {
+  return `${car.type} - ${car.name}`;
+}
+
+
+function personList(persons: Person[], overrides: VNode) {
+  const list = {
+    tag: 'person-list'
+  };
+  list = Object.assign(list, overrides);
+  
+  for(const person of persons) {
+    list.children.push(
+      div({ text: get(person, fullName)]})
+    )
+  }
+
+  function fullName {
+    return `${person.firstName} ${person.lastName}`;
+  }
+
+  return render(list);
+}
+
+
+
+
+```
+
 
 ## Add file watcher to node server
 

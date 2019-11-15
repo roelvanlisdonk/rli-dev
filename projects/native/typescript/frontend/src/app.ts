@@ -40,6 +40,11 @@ function setupServerSideEvents() {
   }
 }
 
+function myTest(): string {
+  const x = 1;
+  return x > 2 ? 'test' : '';
+}
+
 function render() {
   const fragment = document.createDocumentFragment();
   addHeaderTo(fragment);
