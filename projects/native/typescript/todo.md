@@ -51,20 +51,53 @@ const green = registerCssClass(app, 'green', { paddingLeft: '10px'; });
 // This will register a class app-green, yes I know this is a little bit verbose in the html,
 // but I think this is the best trade-off we can make, to not interfere with child elements.
 
+// ------------------------------------ main.ts ---------------------------------------- //
+import { app } from './app.component';
+import { router } from './router.service';
 
-const app = render({
-  tag: tagName,
-  children: [
-    div({ css: row, children: [
-      div({ css: [column], text: get(car1, fullName), display: when(car1, isGreen)}),
-      div({ css: [column, green], text: get(car1, fullName, ['type', 'name']), display: when(car1, isBmw)}),
-      div({ css: [get(car1, color)]}),
-      personList(persons, { css: [column] }) // This will only overwrite the css class column.
-    ]})
-  ]
-});
-root.append(app);
+const appState: AppState = {
+  car: {},
+  persons: []
+}
 
+// Register routes
+
+// Start the application rendering.
+const body = document.querySelectorAll('body')[0];
+body.append(app)
+
+
+// ------------------------------------ app.component.ts ---------------------------------------- //
+import { car } from './car.component';
+import { person-list } from './person-list.component';
+import { router-outlet } from './router-outlet.component';
+
+export function app(state: AppState): DocumentFragment {
+  return render({
+    tag: 'app',
+    children: [
+      div({ css: row, children: [
+        car(car1, { css: [column] }),           // This will only overwrite the css class column.
+        person-list(persons, { css: [column] }) // This will only overwrite the css class column.
+      ]}),
+      router-outlet(state.router) // This will dynamically load a component and render it.
+    ]
+  });
+}
+
+// ------------------------------------ car.component.ts ------------------------------------------------ //
+
+export function car(state: Car, overrides?: VNode): DocumentFragment {
+  const component = {
+    tag: 'car',
+    css: [get(state, color)],
+    text: get(state, fullName, ['type', 'name']),
+    display: when(state, isBmw)
+  };
+  component = Object.assign(list, overrides);
+
+  return render(component);
+}
 
 function color(car: Car): CssClass {
   if(car.name === 'BMW') {
@@ -74,31 +107,47 @@ function color(car: Car): CssClass {
   return normal;
 }
 
-
-
 function fullName(car: Car) {
   return `${car.type} - ${car.name}`;
 }
 
+// ------------------------------------ person-list.component.ts ---------------------------------------- //
 
-function personList(persons: Person[], overrides: VNode) {
-  const list = {
+
+export function person-list(persons: Person[], overrides: VNode) {
+  const component = {
     tag: 'person-list'
   };
-  list = Object.assign(list, overrides);
+  component = Object.assign(list, overrides);
   
   for(const person of persons) {
-    list.children.push(
+    component.children.push(
       div({ text: get(person, fullName)]})
     )
   }
 
-  function fullName {
-    return `${person.firstName} ${person.lastName}`;
-  }
-
-  return render(list);
+  return render(component);
 }
+
+function fullName(person: Person) {
+    return `${person.firstName} ${person.lastName}`;
+}
+
+// ------------------------------------ router-outlet.component.ts ---------------------------------------- //
+
+function router-outlet(state:Route, overrides: VNode) {
+  const component = {
+    tag: 'router-outlet'
+  };
+  component = Object.assign(component, overrides);
+  return render(component);
+}
+
+
+// ------------------------------------ router.service.ts ---------------------------------------- //
+
+// When url changes, store route information in the store and execute registered loaders.
+
 
 
 
