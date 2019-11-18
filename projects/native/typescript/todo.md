@@ -1,4 +1,12 @@
 # TODO
+We need npm-run-all, because we need to run the frontend watch and backend watch in parallel.
+
+## Retry EventSource
+When the server restarts the browser
+https://stackoverflow.com/questions/24564030/is-an-eventsource-sse-supposed-to-try-to-reconnect-indefinitely
+
+<br>
+<br>
 
 ## NPM Scripts
 
@@ -6,7 +14,6 @@ Use npm-run-all to execute the following scripts in parallel
 
 - "frontend-watch": "tsc -w"
 - "refresh-browser-on-frontend-code-change": "ts-node-dev refresh-browser.ts"
-
   - Watch on frontend/tsconfig.tsbuildinfo and frontend/\*_/_.html
   - call http('localhost:3003/refreshBrowser'), when the watch fires.
     <br>
@@ -22,12 +29,6 @@ Use npm-run-all to execute the following scripts in parallel
 <br>
 <br>
 
-## Retry EventSource
-
-When the server restarts the browser
-
-<br>
-<br>
 
 ## Add render functions
 
