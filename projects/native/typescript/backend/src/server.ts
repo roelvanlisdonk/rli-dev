@@ -3,6 +3,8 @@ import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
 
+console.log('starting server!!');
+
 const port = 3003;
 
 // Init express
@@ -41,6 +43,7 @@ function countdown(res: express.Response, count: number) {
   if (count) {
     setTimeout(() => countdown(res, count - 1), 10000);
   } else {
+    // After 10 message we wait
     res.end();
   }
 }

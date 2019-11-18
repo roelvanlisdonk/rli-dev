@@ -7,11 +7,13 @@
     "build": "npm run build-backend && npm run build-frontend",
     "build-backend": "cd backend && tsc --build tsconfig.json",
     "build-frontend": "cd frontend && tsc --build tsconfig.json",
+    "pre-launch-task": "concurrently \"npm run watch-frontend\" \"npm run debug-backend\"",
     "start": "ts-node-dev --watch ./backend/ --project ./backend/tsconfig.json --respawn --transpileOnly ./backend/src/server.ts",
-    "start-debug": "ts-node-dev --inspect=4321 --project ./backend/tsconfig.json --respawn --transpileOnly ./backend/src/server.ts",
-    "watch-frontend": "cd frontend && tsc -w --build tsconfig.json"
+    "debug-backend": "ts-node-dev --inspect=4321 --project ./backend/tsconfig.json --respawn --transpileOnly ./backend/src/server.ts",
+    "watch-frontend": "cd frontend && tsc --build tsconfig.json -w"
   },
   "devDependencies": {
+    "concurrently": "5.0.0",
     "ts-node": "8.4.1",
     "ts-node-dev": "1.0.0-pre.44",
     "typescript": "3.6.4"

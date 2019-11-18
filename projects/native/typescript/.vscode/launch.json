@@ -8,7 +8,7 @@
       "type": "node",
       "request": "attach",
       "name": "Debug server",
-      "preLaunchTask": "npm: build-frontend",
+      "preLaunchTask": "npm: pre-launch-task",
       "protocol": "inspector",
       "port": 4321,
       "restart": true,

@@ -1,5 +1,6 @@
 import { add } from './store/store';
 
+console.log('starting app');
 setupServerSideEvents();
 render();
 
@@ -30,6 +31,8 @@ function setupServerSideEvents() {
         if (e.eventPhase == EventSource.CLOSED) {
           console.log('Server send closed event, close the connection');
           source.close();
+
+          setTimeout(setupServerSideEvents, 2000);
           return;
         }
       },
