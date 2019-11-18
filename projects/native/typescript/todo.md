@@ -54,6 +54,7 @@ const green = registerCssClass(app, 'green', { paddingLeft: '10px'; });
 // ------------------------------------ main.ts ---------------------------------------- //
 import { app } from './app.component';
 import { router } from './router.service';
+import { store } from './store.service';
 
 const appState: AppState = {
   car: {},
@@ -61,6 +62,11 @@ const appState: AppState = {
 }
 
 // Register routes
+router.register('/car', import('./car').then((mod)=> {
+  // When the user, navigates to /car the car module will be loaded and we update the store with the component render function to use and which data to use, when rendering the component.
+  // This will automatically trigger a re-render of the router-outlet component.
+  store.set({ router: { component: mod.component, componentState: {} }});
+}));
 
 // Start the application rendering.
 const body = document.querySelectorAll('body')[0];
@@ -87,12 +93,31 @@ export function app(state: AppState): DocumentFragment {
 
 // ------------------------------------ car.component.ts ------------------------------------------------ //
 
-export function car(state: Car, overrides?: VNode): DocumentFragment {
+export let translations = {
+    fullName: 'Full name'
+};
+
+let translationsNl = {
+    fullName: 'Volledige naam'
+};
+
+export function car(state: Car, overrides?: VNode, translator?: Translator): DocumentFragment {
+  // Register translation for dutch.
+  translations = translateService.register('car', translations, 'nl');
+  // Register translation for the default language.
+  translations = translateService.register('car', translations);
+
+  
+
   const component = {
     tag: 'car',
     css: [get(state, color)],
     text: get(state, fullName, ['type', 'name']),
-    display: when(state, isBmw)
+    display: when(state, isBmw),
+    // Life cycle hooks
+    onDestroy: () => {
+      // unsubscribe, manually subscribed store items.
+    }
   };
   component = Object.assign(list, overrides);
 
@@ -108,7 +133,7 @@ function color(car: Car): CssClass {
 }
 
 function fullName(car: Car) {
-  return `${car.type} - ${car.name}`;
+  return `${translations.fullName}: ${car.type} - ${car.name}`;
 }
 
 // ------------------------------------ person-list.component.ts ---------------------------------------- //
@@ -139,17 +164,118 @@ function router-outlet(state:Route, overrides: VNode) {
   const component = {
     tag: 'router-outlet'
   };
+  const element = render(component)[0];
+  const module = import(state.componentModule).then((mod) => {
+    renderDomElement(element, mod[state.componentFn](state.componentState));
+  });
   component = Object.assign(component, overrides);
   return render(component);
 }
 
 
-// ------------------------------------ router.service.ts ---------------------------------------- //
+// ------------------------------------ http.ts ---------------------------------------- //
+public class Http {
+  // This class is a thin wrapper around the browsers fetch api.
+  // It is created so we can create http interceptors, to execute some code just before sending a http request of just after receiving a http response.
 
-// When url changes, store route information in the store and execute registered loaders.
+  get(url: string) : Promise {
+
+  }
+
+  post<T>(url: string, data: T) : Promise {
+    
+  }
+
+  registerRequestInterceptor() {
+
+  }
+
+  registerResponseInterceptor() {
+
+  }
+
+  unRegisterRequestInterceptor() {
+
+  }
+
+  unRegisterResponseInterceptor() {
+    
+  }
+}
 
 
+// ------------------------------------ router.ts ---------------------------------------- //
+import { Store } from './store';
 
+public class Router {
+  constructor(store: Store) {
+
+  }
+
+  registerRoute(route: string, fn: RenderFn) {
+
+  }
+
+
+  watchUrl() {
+    // Add event listener to URL changes.
+    // Change the state in the store
+  }
+}
+
+// ------------------------------------ store.ts ---------------------------------------- //
+
+export public class Store {
+  get(path: string) {
+
+  }
+
+  // Because local storage is also synchronous, we will only create a synchronous store for now.
+  save(item: StoreItem | StoreItem[]) {
+
+  }
+
+  onKeyChange(path: string): Promise {
+
+  }
+
+  onValueChange(value: StoreItem): Promise {
+
+  }
+
+  unsubscribe(promise: Promise) {
+
+  }
+}
+
+export const appStore = new Store();
+
+
+// ------------------------------------ translator.ts ---------------------------------------- //
+
+export public class Translator {
+  // For now this api is synchronous, if you have large translation files or many languages, 
+  // We should add the asynchronous api.
+  constructor(store: Store) {
+
+  }
+
+  getLanguage() string {
+
+  }
+
+  register(translation: any) {
+
+  }
+
+  setLanguage(language: string) {
+
+  }
+
+  translate(key: string): string {
+
+  }
+}
 
 
 ```
