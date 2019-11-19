@@ -3,6 +3,13 @@
 This application is created with pure TypeScript only.
 It just a playground to try out native TypeScript and browser features.
 
+To start the application after a git clone, use:
+
+npm run install-and-start
+
+
+
+
 #Resources
 The following resources were used to create this application
 

@@ -121,8 +121,12 @@
         "version": "2a54d5c10d949119c2e4ebc2d35a6ecc5f904a7eb5a41dcf8030c163a586751d",
         "signature": "ad6bccc0c6d6187596f33014d4ee18ee0906815995c26aeda5c8b59f231ffb26"
       },
+      "./src/services/server-side-events.service.ts": {
+        "version": "fd9a3eacfe7386877303fdd6a908823de10a1bddb058f3b7592bcbcd86dca47c",
+        "signature": "de430094cd809dff30b693073f7ccbd63f481f6a6f9bd9b362001048103362f4"
+      },
       "./src/app.ts": {
-        "version": "1d21bdb7efe869e843528deda615799eb0f4d660687178da5e6252bd60edcb76",
+        "version": "3a78a35fb3d5c961b32f9753691624ed002b4e0ce44c1d4b3ea757fb3a9f13e9",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "./node_modules/@types/node/globals.d.ts": {
@@ -505,8 +509,13 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./src/services/server-side-events.service.ts": [
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./src/app.ts": [
         "./src/store/store.ts",
+        "./src/services/server-side-events.service.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -1343,6 +1352,7 @@
       "./node_modules/@types/jasmine/ts3.1/index.d.ts",
       "./node_modules/@types/strip-bom/index.d.ts",
       "./node_modules/@types/strip-json-comments/index.d.ts",
+      "./src/services/server-side-events.service.ts",
       "./src/app.ts"
     ]
   },

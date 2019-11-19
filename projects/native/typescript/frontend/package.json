@@ -7,14 +7,8 @@
     "@types/jasmine": "3.4.6",
     "@types/jsdom": "11.0.4",
     "@types/node": "12.7.7",
-    "ts-node-dev": "1.0.0-pre.44",
     "jasmine": "3.5.0",
     "jsdom": "15.2.1",
-    "typescript": "3.6.3"
-  },
-  "scripts": {
-    "test": "tsc && jasmine --config=jasmine.json",
-    "testj": "jasmine --config=jasmine.json",
-    "test-ci": "ts-node-dev node_modules/jasmine/bin/jasmine --config=jasmine.json"
+    "typescript": "3.7.2"
   }
 }
