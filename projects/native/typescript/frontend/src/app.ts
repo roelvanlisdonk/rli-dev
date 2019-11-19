@@ -6,7 +6,7 @@ render();
 
 function setupServerSideEvents() {
   if (!!window.EventSource) {
-    const source = new EventSource('/countdown');
+    const source = new EventSource('/connect');
 
     source.addEventListener(
       'message',
@@ -32,6 +32,7 @@ function setupServerSideEvents() {
           console.log('Server send closed event, close the connection');
           source.close();
 
+          // Retry connection in 2 seconds.
           setTimeout(setupServerSideEvents, 2000);
           return;
         }
