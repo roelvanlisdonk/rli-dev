@@ -6,16 +6,16 @@ import * as fs from 'fs';
 /**
  * This route should be registered last, because it is the fallback route.
  * It will serve files, like the index.html, *.map files, JavaScript modules etc.
- * @param frontendRootFolder
+ * @param frontendSrcFolder
  */
-export function registerFallbackRoute(app: express.Application, frontendRootFolder: string) {
+export function registerFallbackRoute(app: express.Application, frontendSrcFolder: string) {
   // Fallback route '*', should be registered as last route.
   app.get('*', (req: express.Request, res: express.Response) => {
     console.log(`Get url: ${req.url}.`);
-    const file = getFileName(req.url, frontendRootFolder);
+    const file = getFileName(req.url, frontendSrcFolder);
 
     console.log(`Return file: ${file}.`);
-    res.sendFile(file, { root: frontendRootFolder });
+    res.sendFile(file, { root: frontendSrcFolder });
   });
 }
 

@@ -1,6 +1,6 @@
 import { add } from './store/store';
 
-console.log('starting app');
+console.log('starting app!!');
 setupServerSideEvents();
 render();
 
@@ -12,6 +12,10 @@ function setupServerSideEvents() {
       'message',
       function(e) {
         console.log(`message ${e.data}`);
+        if (e.data === 'frontend-sources-changed') {
+          console.log('refreshing the browser');
+          location.reload(true);
+        }
       },
       false
     );
@@ -73,7 +77,7 @@ function addMainTo(fragment: DocumentFragment) {
   addTitleTo(fragment);
 }
 function addTitleTo(fragment: DocumentFragment) {
-  const title = 'This is a title.';
+  const title = 'This is a title and we changed it.';
   console.log(`title: ${title}`);
   const textElement = document.createElement('div');
   textElement.innerText = title;

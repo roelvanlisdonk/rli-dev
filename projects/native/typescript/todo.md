@@ -1,12 +1,7 @@
 # TODO
 We need npm-run-all, because we need to run the frontend watch and backend watch in parallel.
 
-## Retry EventSource
-When the server restarts the browser
-https://stackoverflow.com/questions/24564030/is-an-eventsource-sse-supposed-to-try-to-reconnect-indefinitely
 
-<br>
-<br>
 
 ## NPM Scripts
 
@@ -284,10 +279,9 @@ export public class Translator {
 
 ## Add file watcher to node server
 
-To minimize external dependencies / tooling used, we will watch changes to the frontend files,
-inside the node server.
+To minimize external dependencies / tooling used, we will watch changes to the frontend files, inside the node server.
 https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/
-We can use child_process to execute tsc -w and output the logging to the console.
+
 
 <br>
 <br>
