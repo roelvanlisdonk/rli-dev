@@ -79,7 +79,7 @@ router.register('/car', import('./car').then((mod)=> {
 
 // Start the application rendering.
 const body = document.querySelectorAll('body')[0];
-body.append(app)
+body.append(app(appState))
 
 
 // ------------------------------------ app.component.ts ---------------------------------------- //
