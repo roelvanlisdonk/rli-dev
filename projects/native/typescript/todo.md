@@ -338,3 +338,49 @@ I think I want the following folder structure:
   - tslint
 - package.json
   - this will contain only npm run scripts
+
+
+
+```TypeScript
+
+// First option
+// VirtualNode extends VirtualNodeOptions
+// - deps
+// - tageName
+// - create(), e.g. === div()
+// Components are functions that receive one parameter and return a VirtualNode object or an array of VirtualNode objects.
+// These VirtualNode objects can be passed to the render() function, to convert it to a document fragment.
+// There is a life cycle function "beforeRender", that receives the parent dom element and VirtualNode and can be use to do your own rendering.
+// Inside the beforeRender you can use component functions to convert VirtualNodes to DocumentFragments.
+//
+// div
+// The only thing a function like div() will do is add tagName: 'div', to the overwrites and a renderFn: div.
+
+
+const body = document.querySelectorAll('body')[0];
+render(body, div({
+  classList: [
+    get(boxClass, person),
+    when(person, isAdult, 'green', 'black')
+  ],
+  display: when(person, isAdult, 'flex'),
+  text: get(fullName, person)
+  children: [
+    personList({ deps: persons })
+  ]
+})));
+
+function whenIsAdult(person) {
+  return {
+    deps: person,
+    depFields: [], // Only used, to improve performance, when you only want to re-render on changes of specific fields.
+    value: person.age >= 18 ? 'flex', 'none';
+    fn: whenIsAdult
+  }
+}
+
+
+
+
+
+```
