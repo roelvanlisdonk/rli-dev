@@ -1,3 +1,5 @@
-export function add() {
-  console.log('add called from store.ts');
+let state = {};
+
+export function getState<T>(): T {
+  return state as T;
 }

@@ -6,6 +6,9 @@ To start the application after a git clone, use:
 
 npm run install-and-start
 
+# Dependencies
+- Concurrently - We need concurrently, because we need to run the frontend watch and backend watch in parallel.
+- Karma - Frontend unit testing, integration testing and end to end testing
 
 
 # Resources

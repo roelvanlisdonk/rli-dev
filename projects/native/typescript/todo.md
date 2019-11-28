@@ -1,5 +1,7 @@
 # TODO
-We need npm-run-all, because we need to run the frontend watch and backend watch in parallel.
+- ESLint
+- Karma for frontend testing
+- Native jasmine for backend testing
 
 
 

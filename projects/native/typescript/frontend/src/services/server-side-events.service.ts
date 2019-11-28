@@ -1,4 +1,4 @@
-export function setupServerSideEvents() {
+export function setupReloadOnServerSideEvent() {
   if (!!window.EventSource) {
     const source = new EventSource('/connect');
 
@@ -30,7 +30,7 @@ export function setupServerSideEvents() {
           source.close();
 
           // Retry connection in 2 seconds.
-          setTimeout(setupServerSideEvents, 2000);
+          setTimeout(setupReloadOnServerSideEvent, 2000);
           return;
         }
       },
