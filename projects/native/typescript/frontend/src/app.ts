@@ -1,15 +1,15 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
-import { addRule } from './services/style.service';
+import { addCssTag } from './services/style.service';
 
 setupReloadOnServerSideEvent();
-render();
+renderAppComponent();
 
-function render() {
-  const tagName = 'ts-app';
-  addRule(`${tagName} {
-    border: 10px solid rgb(100, 100, 100);
-    display: flex;
-  }`);
+function renderAppComponent() {
+  const name = 'ts-app';
+  addCssTag(name, {
+    border: '10px solid rgb(100, 100, 100)',
+    display: 'flex'
+  });
 
   const fragment = document.createDocumentFragment();
   const hello = document.createElement('ts-app');

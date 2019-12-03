@@ -126,11 +126,11 @@
         "signature": "f41d952e38592156ad0e72379c39b45eabd0f6450d58510e250d2c0c6048aec5"
       },
       "./src/services/style.service.ts": {
-        "version": "59c95a3d7f4a4df7ab1e5021faaa4c335ce857c27591d9a507b1ed904ab3eed9",
-        "signature": "400086b0ec52347f022a017608db78cfdd42c0ca915955454f3f720df3c20239"
+        "version": "59239cb2b534a07fd0b8813ce73a8d919c416a0ff36941ace17815cae8705c01",
+        "signature": "246d7b3e1a43029c76e8ff61c3d1b1a29303d6623a90d758ba0a8f6ef6994837"
       },
       "./src/app.ts": {
-        "version": "dda59007f705461c0d89bcdf5dd6b495a840651b46492dc07cad3de5601fa4e9",
+        "version": "324b5f480919a6cf76eeca3a352650953f9a1977b4f106ed0550f19b089bb146",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "./node_modules/@types/node/globals.d.ts": {
