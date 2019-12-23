@@ -20,7 +20,6 @@ export function addCssRule(rule: string): void {
   // Modern browsers use 'Constructable Stylesheets' to prevent flash of un-styled content, when attaching stylesheet to the head of the document.
   const sheet = new CSSStyleSheet() as any;
   if (typeof sheet.replaceSync === 'function') {
-    console.log('inside modern browser');
     sheet.replaceSync(rule);
     const modernDocument = document as any;
     modernDocument.adoptedStyleSheets = [...modernDocument.adoptedStyleSheets, sheet];
@@ -40,11 +39,11 @@ export function convertCSSStyleDeclarationToText(declaration: CSSStyleDeclaratio
   // To let developers call this function with an object notation as declaration,
   // we have to convert the declaration to a real CSSStyleDeclaration,
   // in order to convert it correctly to a string.
-  const element: any = document.createElement('div');
+  const element = document.createElement('div');
 
   for (const prop in declaration) {
     if (declaration.hasOwnProperty(prop)) {
-      element[prop] = (declaration as any)[prop];
+      element.style[prop as any] = (declaration as any)[prop];
     }
   }
 

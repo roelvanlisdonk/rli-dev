@@ -359,8 +359,7 @@ I think I want the following folder structure:
 // The only thing a function like div() will do is add tagName: 'div', to the overwrites and a renderFn: div.
 
 
-const body = document.querySelectorAll('body')[0];
-render(body, div({
+render(document.body, div({
   classList: [
     get(boxClass, person),
     when(person, isAdult, 'green', 'black')
@@ -381,8 +380,30 @@ function whenIsAdult(person) {
   }
 }
 
+render(document.body, div({
+  classList: [
+    when(person, isAdult, 'required')
+  ],
+  display: when(person, isAdult, 'flex'),
+  text: get(person, fullName)
+  children: [
+    personList({ deps: persons })
+  ]
+})));
 
+function fullName(person: Person) {
+  return `${person.firstName} ${person.lastName}`;
+}
 
+// The get function is a helper function:
+function get<T>(deps: T, fn<T>, depFields?: keyOf<T>[]) {
+  return {
+    deps,
+    depFields, // Only used, to improve performance, when you only want to re-render on changes of specific fields.
+    value: fn()
+    fn
+  }
+}
 
 
 ```
