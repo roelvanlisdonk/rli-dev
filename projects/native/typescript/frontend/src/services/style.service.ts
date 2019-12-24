@@ -1,4 +1,4 @@
-import { getState } from '../store/store';
+import { getState } from './store';
 
 const state = getState<StyleState>();
 state.cssRules = new Set<string>();

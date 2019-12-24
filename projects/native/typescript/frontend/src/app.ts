@@ -1,18 +1,21 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
 import { addCssTag, addCssClass } from './services/style.service';
+import { getState } from './services/store';
+
+const state = getState<AppState>();
 
 setupReloadOnServerSideEvent();
 boot();
 
 function boot() {
-  const persons: Person[] = [
+  state.persons = [
     {
       firstName: 'Max',
       lastName: 'Brook'
     }
   ];
 
-  appendComponent(document.body, personList(persons));
+  appendComponent(document.body, personList(state.persons));
 }
 
 function appendComponent(element: HTMLElement, component: Component): void {
@@ -154,4 +157,8 @@ export interface Binding<T, V> {
   deps: T;
   depFields?: keyof T[]; // Only used, to improve performance, when you only want to re-render on changes of specific fields.
   fn: (deps: T) => V;
+}
+
+export interface AppState {
+  persons: Person[];
 }
