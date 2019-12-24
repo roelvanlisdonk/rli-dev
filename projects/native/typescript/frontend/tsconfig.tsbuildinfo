@@ -126,12 +126,12 @@
         "signature": "f41d952e38592156ad0e72379c39b45eabd0f6450d58510e250d2c0c6048aec5"
       },
       "./src/services/style.service.ts": {
-        "version": "ed1f8dac73c8a6a8c30f5ba7486e2d12f0cc57ce41c021f15a60c25571b3f0f6",
-        "signature": "246d7b3e1a43029c76e8ff61c3d1b1a29303d6623a90d758ba0a8f6ef6994837"
+        "version": "a272153f66c74a97223b8a385de6603f2522ce5870b65c019d045f6f3a212fbe",
+        "signature": "136063fa225bf78267440214385cb86842044365379dbe09dedeb3b0881cefe4"
       },
       "./src/app.ts": {
-        "version": "394b9d605a22dca782cbe304c3176aed647821920d81c6c1f77cc53e012ec2d7",
-        "signature": "e985a367ccd670296ecc8bccd21b52034f2a244d7991006a5b5c83b290bebf2e"
+        "version": "ae9b4ccadf5788b6aa47ea21e8a88d7020de74b02f2f64ace4f5c802bcaff20a",
+        "signature": "7bf432aa9847d72553d435e26e5b8877050742847f5cc29267d4a6396c51f7bd"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "e4461b72726848da76a31153b6b01af5e0be3b08dbfa2ec5741ad302eb20f2ed",

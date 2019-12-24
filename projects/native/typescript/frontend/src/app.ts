@@ -28,6 +28,8 @@ function appendComponent(element: HTMLElement, component: Component): void {
 
   appendComponentClasses(childElement, component);
   appendComponentChildren(childElement, component);
+  appendComponentEventHandlers(childElement, component);
+
   element.appendChild(childElement);
 }
 
@@ -66,11 +68,19 @@ function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any
   }
 }
 
+function appendComponentEventHandlers(childElement: HTMLElement, component: Component) {
+  for (const prop in component) {
+    if (component.hasOwnProperty(prop) && prop.startsWith('on')) {
+      (childElement as any)[prop] = (component as any)[prop];
+    }
+  }
+}
+
 function isComponent(component: Component | Binding<any, Component[]>): component is Component {
   return (component as Component).name !== undefined;
 }
 
-export interface ActionButtonOptions {
+export interface ActionButtonOptions extends Partial<HTMLButtonElement> {
   text: string | Binding<any, string>;
 }
 
@@ -82,12 +92,15 @@ function actionButton(options: ActionButtonOptions): Component {
     userSelect: 'none'
   });
 
-  return {
-    name,
-    classes: [className],
-    text: options.text,
-    type: 'button'
-  };
+  return Object.assign(
+    {
+      name,
+      classes: [className],
+      text: options.text,
+      type: 'button'
+    },
+    options
+  );
 }
 
 function personList(persons: Person[]): Component {
@@ -99,7 +112,7 @@ function personList(persons: Person[]): Component {
   return {
     name,
     children: [
-      actionButton({ text: 'Execute' }),
+      actionButton({ text: 'Execute', onclick: () => console.log('Clicked on execute button.') }),
       {
         name: 'ul',
         children: [personListItems(persons)]
@@ -129,7 +142,7 @@ export interface Person {
   lastName: string;
 }
 
-export interface Component {
+export interface Component extends Partial<GlobalEventHandlers> {
   children?: (Component | Binding<any, Component[]>)[];
   classes?: (string | Binding<any, any>)[];
   name: string;
