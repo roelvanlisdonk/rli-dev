@@ -1,6 +1,7 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
-import { addCssTag, addCssClass } from './services/style.service';
+import { addCssTag, addCssClass, StyleState } from './services/style.service';
 import { getState } from './services/store';
+import { strictEqual } from 'assert';
 
 const state = getState<AppState>();
 
@@ -21,17 +22,9 @@ function boot() {
 function appendComponent(element: HTMLElement, component: Component): void {
   const childElement = document.createElement(component.name);
 
-  if (component.text && typeof component.text == 'string') {
-    childElement.textContent = component.text;
-  }
-
-  if (component.type && typeof component.type == 'string') {
-    (childElement as HTMLButtonElement).type = component.type;
-  }
-
+  appendComponentAttributes(childElement, component);
   appendComponentClasses(childElement, component);
   appendComponentChildren(childElement, component);
-  appendComponentEventHandlers(childElement, component);
 
   element.appendChild(childElement);
 }
@@ -71,10 +64,21 @@ function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any
   }
 }
 
-function appendComponentEventHandlers(childElement: HTMLElement, component: Component) {
-  for (const prop in component) {
-    if (component.hasOwnProperty(prop) && prop.startsWith('on')) {
-      (childElement as any)[prop] = (component as any)[prop];
+function appendComponentAttributes(childElement: HTMLElement, component: Component) {
+  for (const sourceProp in component) {
+    let destProp = sourceProp;
+    if (component.hasOwnProperty(sourceProp) && sourceProp !== 'children' && sourceProp !== 'classes' && sourceProp !== 'name') {
+      if (sourceProp === 'text') {
+        destProp = 'textContent';
+      }
+
+      let sourceValue = (component as any)[sourceProp];
+      if (sourceValue && sourceValue.deps) {
+        // setup re-rendering, when value change in the store.
+        sourceValue = sourceValue.fn(sourceValue.deps);
+      }
+
+      (childElement as any)[destProp] = sourceValue;
     }
   }
 }
@@ -115,7 +119,13 @@ function personList(persons: Person[]): Component {
   return {
     name,
     children: [
-      actionButton({ text: 'Execute', onclick: () => console.log('Clicked on execute button.') }),
+      actionButton({
+        text: 'Execute',
+        onclick: () => {
+          console.log('Clicked on execute button.');
+          state.persons[0].firstName = 'Someone else';
+        }
+      }),
       {
         name: 'ul',
         children: [personListItems(persons)]
@@ -132,7 +142,10 @@ function personListItems(persons: Person[]): Binding<Person[], Component[]> {
       persons.map((x) => {
         return {
           name: 'li',
-          text: x.firstName
+          text: {
+            deps: x,
+            fn: (person: Person) => person.firstName
+          }
         };
       })
   };
@@ -159,6 +172,6 @@ export interface Binding<T, V> {
   fn: (deps: T) => V;
 }
 
-export interface AppState {
+export interface AppState extends StyleState {
   persons: Person[];
 }

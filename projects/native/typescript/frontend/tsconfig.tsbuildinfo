@@ -130,8 +130,8 @@
         "signature": "136063fa225bf78267440214385cb86842044365379dbe09dedeb3b0881cefe4"
       },
       "./src/app.ts": {
-        "version": "11d7c35e154176f56fd70d23953c2cac2e3fb372c1ccf840a6f06edd48842f95",
-        "signature": "2d006bd305a80ed29549b78457f806578f78d07ecc9c170e14c4a2ed471a7af4"
+        "version": "4ebe50557b563c1386dc00f84d0cfa868b8ad1299b0fa3631252837dfc92ed4b",
+        "signature": "21e9b29f618535393016f1d74f330969d3455ac628bfc5dc80b5d0f36604c230"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "e4461b72726848da76a31153b6b01af5e0be3b08dbfa2ec5741ad302eb20f2ed",
@@ -933,6 +933,9 @@
       "../node_modules/typescript/lib/lib.esnext.bigint.d.ts": [
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/app.ts": [
+        "./src/services/style.service.ts"
       ],
       "./node_modules/@types/node/globals.d.ts": [
         "./node_modules/@types/node/util.d.ts",
