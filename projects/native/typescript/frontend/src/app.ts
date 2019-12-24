@@ -1,7 +1,6 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
 import { addCssTag, addCssClass, StyleState } from './services/style.service';
 import { getState } from './services/store';
-import { strictEqual } from 'assert';
 
 const state = getState<AppState>();
 
