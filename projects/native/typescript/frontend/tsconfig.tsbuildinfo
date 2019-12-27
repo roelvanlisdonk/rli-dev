@@ -122,16 +122,20 @@
         "signature": "c1f76c31c529eec6811f81b7f8ac462380e00d340f918dc788063264b6b245a2"
       },
       "./src/services/store.ts": {
-        "version": "f8f41ea80e636c921eccc12579b1aff0553ab75d63b898468410e910c8dc9431",
-        "signature": "f41d952e38592156ad0e72379c39b45eabd0f6450d58510e250d2c0c6048aec5"
+        "version": "849dfa257f42f0dd541e1f9dd32f071ec59e77042d51bb45fb24b7961d78c98b",
+        "signature": "bb53bc2e366db4d221cdc904f9a03898fff78fd6e3a51f738e663b7a8b1448e7"
       },
       "./src/services/style.service.ts": {
         "version": "692450421437454a472c94d5f505ee7a6073990c50f5411aa678bf4787ed6212",
         "signature": "136063fa225bf78267440214385cb86842044365379dbe09dedeb3b0881cefe4"
       },
+      "./src/services/render.service.ts": {
+        "version": "c76514f799cfd61bc10916de76a13cab3b204b9d8ad58e59f2072e132d918836",
+        "signature": "99833be09c0bdf80b08a0d27a6ae6caaad2a5a1e24de4b0e35ba0bea34d2039b"
+      },
       "./src/app.ts": {
-        "version": "1c8bc7137560ad0a1fe5d88bfd14208c8be3293a83443166624834309891c63b",
-        "signature": "21e9b29f618535393016f1d74f330969d3455ac628bfc5dc80b5d0f36604c230"
+        "version": "a29ed670f1e42682668b9c7155244e3f5aa6022869b74c3ba48f8f9a2a36c242",
+        "signature": "ec1c78f02a7246ae100b072a351fd9503937b5b803084f9d00c9afeb3ae258ef"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "e4461b72726848da76a31153b6b01af5e0be3b08dbfa2ec5741ad302eb20f2ed",
@@ -502,10 +506,16 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./src/services/render.service.ts": [
+        "./src/services/store.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./src/app.ts": [
         "./src/services/server-side-events.service.ts",
         "./src/services/style.service.ts",
         "./src/services/store.ts",
+        "./src/services/render.service.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -935,6 +945,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/app.ts": [
+        "./src/services/render.service.ts",
         "./src/services/style.service.ts"
       ],
       "./node_modules/@types/node/globals.d.ts": [
@@ -1326,6 +1337,7 @@
       "./node_modules/@types/jasmine/ts3.1/index.d.ts",
       "./node_modules/@types/strip-bom/index.d.ts",
       "./node_modules/@types/strip-json-comments/index.d.ts",
+      "./src/services/render.service.ts",
       "./src/app.ts"
     ]
   },
