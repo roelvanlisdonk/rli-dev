@@ -1,8 +1,8 @@
-import { registerSetStateEventListener } from './store';
+import { registerOnStateChangeEventListeners } from './store';
 
-let attributeBindings: AttributeBinding<any, any>[] = [];
+let renderBindings: RenderBinding<any, any>[] = [];
 
-registerSetStateEventListener(OnStateChange);
+registerOnStateChangeEventListeners(OnStateChange);
 
 export function appendComponent(element: HTMLElement, component: Component): void {
   const childElement = document.createElement(component.name);
@@ -14,15 +14,45 @@ export function appendComponent(element: HTMLElement, component: Component): voi
   element.appendChild(childElement);
 }
 
-export function appendComponentClasses(childElement: HTMLElement, component: Component) {
-  if (component.classes && component.classes.length > 0) {
-    const total = component.classes.length;
-    for (let i = 0; i < total; i++) {
-      const cssClass = component.classes[i];
-      if (typeof cssClass == 'string') {
-        childElement.classList.add(cssClass);
+export function appendComponentAttributes(childElement: HTMLElement, component: Component) {
+  for (const sourceProp in component) {
+    let destProp = sourceProp;
+    if (component.hasOwnProperty(sourceProp) && sourceProp !== 'children' && sourceProp !== 'classes' && sourceProp !== 'name') {
+      if (sourceProp === 'text') {
+        destProp = 'textContent';
       }
+
+      let sourceValue = (component as any)[sourceProp];
+
+      if (isBinding(sourceValue)) {
+        // setup re-rendering, when value changes in the store.
+        renderBindings.push({
+          attributeName: destProp,
+          binding: sourceValue,
+          childElement,
+          component,
+          oldDeps: Object.assign({}, sourceValue.deps),
+          render: renderAttributeBinding
+        });
+
+        sourceValue = sourceValue.fn(sourceValue.deps);
+      }
+
+      (childElement as any)[destProp] = sourceValue;
     }
+  }
+}
+
+export function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any, Component[]>) {
+  const components = binding.fn(binding.deps);
+  if (!components) {
+    return;
+  }
+
+  const total = components.length;
+  for (let i = 0; i < total; i++) {
+    const component = components[i];
+    appendComponent(childElement, component);
   }
 }
 
@@ -40,39 +70,26 @@ export function appendComponentChildren(childElement: HTMLElement, component: Co
   }
 }
 
-export function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any, Component[]>) {
-  const components = binding.fn(binding.deps);
-  const total = components.length;
-  for (let i = 0; i < total; i++) {
-    const component = components[i];
-    appendComponent(childElement, component);
-  }
-}
-
-export function appendComponentAttributes(childElement: HTMLElement, component: Component) {
-  for (const sourceProp in component) {
-    let destProp = sourceProp;
-    if (component.hasOwnProperty(sourceProp) && sourceProp !== 'children' && sourceProp !== 'classes' && sourceProp !== 'name') {
-      if (sourceProp === 'text') {
-        destProp = 'textContent';
+export function appendComponentClasses(childElement: HTMLElement, component: Component) {
+  if (component.classes && component.classes.length > 0) {
+    const total = component.classes.length;
+    for (let i = 0; i < total; i++) {
+      const cssClass = component.classes[i];
+      if (typeof cssClass == 'string') {
+        childElement.classList.add(cssClass);
+        continue;
       }
 
-      let sourceValue = (component as any)[sourceProp];
-
-      if (isBinding(sourceValue)) {
+      if (isBinding(cssClass)) {
         // setup re-rendering, when value changes in the store.
-        attributeBindings.push({
-          binding: sourceValue,
+        renderBindings.push({
+          binding: cssClass,
           childElement,
           component,
-          name: destProp,
-          render: renderAttributeBinding
+          oldDeps: Object.assign({}, cssClass.deps),
+          render: renderCssClassBinding
         });
-
-        sourceValue = sourceValue.fn(sourceValue.deps);
       }
-
-      (childElement as any)[destProp] = sourceValue;
     }
   }
 }
@@ -85,37 +102,54 @@ export function isComponent(component: Component | Binding<any, Component[]>): c
   return (component as Component).name !== undefined;
 }
 
-export function OnStateChange(state: any) {
-  console.log(`State ${JSON.stringify(state)} changed.`);
-
-  for (const prop in state) {
-    state.hasOwnProperty(prop);
-    const deps = state[prop];
-
-    if (deps !== null && (Array.isArray(deps) || deps === 'object')) {
-      OnStateChange(deps);
-    }
-
-    const found = findMatchingDeps(attributeBindings, deps);
-    if (found) {
-      found.render(found);
-    }
-  }
-}
-
-function findMatchingDeps(bindings: AttributeBinding<any, any>[], deps: any): AttributeBinding<any, any> | null {
-  const total = bindings.length;
+export function OnStateChange(): void {
+  const total = renderBindings.length;
   for (let i = 0; i < total; i++) {
-    const binding = bindings[i];
-    if (binding.binding.deps === deps) {
-      return binding;
+    const binding = renderBindings[i];
+    const newValue = JSON.stringify(binding.binding.deps);
+    const oldValue = JSON.stringify(binding.oldDeps);
+    if (newValue !== oldValue) {
+      console.log(`Change detected: newValue ${newValue}, oldValue ${oldValue}, updating UI.`);
+      binding.render(binding);
+      binding.oldDeps = binding.binding.deps;
     }
   }
-  return null;
 }
 
-export function renderAttributeBinding<T, V>(binding: AttributeBinding<T, V>) {
-  (binding.childElement as any)[binding.name] = binding.binding.fn(binding.binding.deps);
+export function renderAttributeBinding<T, V>(binding: RenderBinding<T, V>) {
+  if (!binding.attributeName) {
+    return;
+  }
+  (binding.childElement as any)[binding.attributeName] = binding.binding.fn(binding.binding.deps);
+}
+
+export function renderCssClassBinding<T, V>(binding: RenderBinding<T, V>) {
+  const whenBinding = binding.binding as WhenBinding<T, string>;
+  const cssClass = whenBinding.fn(whenBinding.deps);
+  if (whenBinding.falseValue && typeof whenBinding.falseValue === 'string') {
+    binding.childElement.classList.remove(whenBinding.falseValue);
+  }
+
+  if (whenBinding.trueValue && typeof whenBinding.trueValue === 'string') {
+    binding.childElement.classList.remove(whenBinding.trueValue);
+  }
+
+  if (cssClass && typeof cssClass === 'string') {
+    binding.childElement.classList.add(cssClass);
+  }
+}
+
+export function when<T, V>(deps: T, fn: (deps: T) => boolean, trueValue: V, falseValue?: V | null): WhenBinding<T, V> {
+  if (falseValue === undefined) {
+    falseValue = null;
+  }
+
+  return {
+    deps,
+    falseValue,
+    fn: () => (fn(deps) ? trueValue : (falseValue as V | null)),
+    trueValue
+  };
 }
 
 export type ComponentFactory<T> = (deps: T, overrides?: Component) => Component;
@@ -131,13 +165,22 @@ export interface Component extends Partial<GlobalEventHandlers> {
 export interface Binding<T, V> {
   deps: T;
   depFields?: keyof T[]; // Only used, to improve performance, when you only want to re-render on changes of specific fields.
-  fn: (deps: T) => V;
+  fn: (deps: T) => V | null;
 }
 
-interface AttributeBinding<T, V> {
+export interface WhenBinding<T, V> extends Binding<T, V> {
+  deps: T;
+  depFields?: keyof T[]; // Only used, to improve performance, when you only want to re-render on changes of specific fields.
+  falseValue: V | null;
+  fn: (deps: T) => V | null;
+  trueValue: V;
+}
+
+interface RenderBinding<T, V> {
+  attributeName?: string;
   binding: Binding<T, V>;
   childElement: HTMLElement;
   component: Component;
-  name: string;
-  render: (binding: AttributeBinding<T, V>) => void;
+  oldDeps: T; // Is used to detect changes.
+  render: (binding: RenderBinding<T, V>) => void;
 }

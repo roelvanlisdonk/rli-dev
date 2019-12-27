@@ -1,7 +1,7 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
 import { addCssTag, addCssClass, StyleState } from './services/style.service';
 import { getState, save } from './services/store';
-import { Binding, Component, appendComponent } from './services/render.service';
+import { Binding, Component, appendComponent, when } from './services/render.service';
 
 const state = getState<AppState>();
 
@@ -13,6 +13,14 @@ function boot() {
     {
       firstName: 'Max',
       lastName: 'Brook'
+    },
+    {
+      firstName: 'Pi',
+      lastName: 'Po'
+    },
+    {
+      firstName: 'Karel',
+      lastName: 'Appel'
     }
   ];
 
@@ -48,6 +56,7 @@ function personList(persons: Person[]): Component {
     border: '10px solid rgb(100, 100, 100)',
     display: 'flex'
   });
+
   return {
     name,
     children: [
@@ -55,7 +64,13 @@ function personList(persons: Person[]): Component {
         text: 'Execute',
         onclick: () => {
           console.log('Clicked on execute button.');
-          state.persons[0].firstName = 'Someone else';
+          const person = state.persons[0];
+          if (person.firstName === 'Someone else') {
+            person.firstName = 'Simon the king';
+          } else {
+            person.firstName = 'Someone else';
+          }
+          person.isSelected = true;
           save(state);
         }
       }),
@@ -67,6 +82,10 @@ function personList(persons: Person[]): Component {
   };
 }
 
+addCssClass('person-list-item-selected', {
+  color: 'rgb(255, 0, 0)'
+});
+
 function personListItems(persons: Person[]): Binding<Person[], Component[]> {
   persons = persons || [];
   return {
@@ -74,6 +93,7 @@ function personListItems(persons: Person[]): Binding<Person[], Component[]> {
     fn: (persons: Person[]) =>
       persons.map((x) => {
         return {
+          classes: [when(x, isSelected, 'person-list-item-selected')],
           name: 'li',
           text: {
             deps: x,
@@ -84,11 +104,16 @@ function personListItems(persons: Person[]): Binding<Person[], Component[]> {
   };
 }
 
+function isSelected(person: Person): boolean {
+  return Boolean(person.isSelected);
+}
+
 export interface AppState extends StyleState {
   persons: Person[];
 }
 
 export interface Person {
   firstName: string;
+  isSelected?: boolean;
   lastName: string;
 }

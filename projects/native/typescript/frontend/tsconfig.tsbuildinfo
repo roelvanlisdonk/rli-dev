@@ -122,20 +122,20 @@
         "signature": "c1f76c31c529eec6811f81b7f8ac462380e00d340f918dc788063264b6b245a2"
       },
       "./src/services/store.ts": {
-        "version": "849dfa257f42f0dd541e1f9dd32f071ec59e77042d51bb45fb24b7961d78c98b",
-        "signature": "bb53bc2e366db4d221cdc904f9a03898fff78fd6e3a51f738e663b7a8b1448e7"
+        "version": "7ea92bdbf42c58f7af361e545f7ff1989e41f8e8afd3f81b5f980dda5a8855c8",
+        "signature": "29cdc2a779e6b0572a7f5d0130ca7e3aa13ba8b6ce69c45b59987ea4f88bcc57"
       },
       "./src/services/style.service.ts": {
         "version": "692450421437454a472c94d5f505ee7a6073990c50f5411aa678bf4787ed6212",
         "signature": "136063fa225bf78267440214385cb86842044365379dbe09dedeb3b0881cefe4"
       },
       "./src/services/render.service.ts": {
-        "version": "c76514f799cfd61bc10916de76a13cab3b204b9d8ad58e59f2072e132d918836",
-        "signature": "99833be09c0bdf80b08a0d27a6ae6caaad2a5a1e24de4b0e35ba0bea34d2039b"
+        "version": "11b254eb6b6092051d83ea620fcdfc5c192a17c279f4029e1aba6eb51a9280fd",
+        "signature": "b0a425611323c8431eefd6bcce80e8c75f70899961df22eedcde4ffdae2b572b"
       },
       "./src/app.ts": {
-        "version": "a29ed670f1e42682668b9c7155244e3f5aa6022869b74c3ba48f8f9a2a36c242",
-        "signature": "ec1c78f02a7246ae100b072a351fd9503937b5b803084f9d00c9afeb3ae258ef"
+        "version": "80b92d9470d1ad371292aa7fdec0919f369fef3ddc5ce4d40ba1558f18ff1a98",
+        "signature": "f5adef7588f0b698a682d7640e85bfee68a8222d5d8f7fe6a59e49997a250ead"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "e4461b72726848da76a31153b6b01af5e0be3b08dbfa2ec5741ad302eb20f2ed",
@@ -1284,6 +1284,7 @@
       "./src/services/server-side-events.service.ts",
       "./src/services/store.ts",
       "./src/services/style.service.ts",
+      "./src/app.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -1337,8 +1338,7 @@
       "./node_modules/@types/jasmine/ts3.1/index.d.ts",
       "./node_modules/@types/strip-bom/index.d.ts",
       "./node_modules/@types/strip-json-comments/index.d.ts",
-      "./src/services/render.service.ts",
-      "./src/app.ts"
+      "./src/services/render.service.ts"
     ]
   },
   "version": "3.7.2"
