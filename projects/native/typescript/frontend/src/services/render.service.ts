@@ -49,6 +49,16 @@ export function appendComponentsBinding(childElement: HTMLElement, binding: Bind
     return;
   }
 
+  // Setup re-rendering, when value changes in the store.
+  renderBindings.push({
+    binding,
+    childElement,
+    component,
+    oldDeps: Object.assign({}, binding.deps),
+    render: renderAttributeBinding
+  });
+}
+export function renderComponentsBinding(childElement: HTMLElement, components: Component[]) {
   const total = components.length;
   for (let i = 0; i < total; i++) {
     const component = components[i];
@@ -82,13 +92,15 @@ export function appendComponentClasses(childElement: HTMLElement, component: Com
 
       if (isBinding(cssClass)) {
         // setup re-rendering, when value changes in the store.
-        renderBindings.push({
+        const renderBinding = {
           binding: cssClass,
           childElement,
           component,
           oldDeps: Object.assign({}, cssClass.deps),
           render: renderCssClassBinding
-        });
+        };
+        renderBindings.push(renderBinding);
+        renderCssClassBinding(renderBinding);
       }
     }
   }
@@ -106,10 +118,8 @@ export function OnStateChange(): void {
   const total = renderBindings.length;
   for (let i = 0; i < total; i++) {
     const binding = renderBindings[i];
-    const newValue = JSON.stringify(binding.binding.deps);
-    const oldValue = JSON.stringify(binding.oldDeps);
-    if (newValue !== oldValue) {
-      console.log(`Change detected: newValue ${newValue}, oldValue ${oldValue}, updating UI.`);
+
+    if (shouldReRender(binding)) {
       binding.render(binding);
       binding.oldDeps = binding.binding.deps;
     }
@@ -137,6 +147,21 @@ export function renderCssClassBinding<T, V>(binding: RenderBinding<T, V>) {
   if (cssClass && typeof cssClass === 'string') {
     binding.childElement.classList.add(cssClass);
   }
+}
+
+export function shouldReRender(binding: RenderBinding<any, any>): boolean {
+  if (binding.binding.deps !== binding.oldDeps) {
+    return true;
+  }
+
+  if (Array.isArray(binding.binding.deps)) {
+    // To improve performance. We only want to re-render, when the array itself changes.
+    return false;
+  }
+
+  const newValue = JSON.stringify(binding.binding.deps);
+  const oldValue = JSON.stringify(binding.oldDeps);
+  return newValue !== oldValue;
 }
 
 export function when<T, V>(deps: T, fn: (deps: T) => boolean, trueValue: V, falseValue?: V | null): WhenBinding<T, V> {

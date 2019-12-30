@@ -1,30 +1,29 @@
 import { setupReloadOnServerSideEvent } from './services/server-side-events.service';
 import { addCssTag, addCssClass, StyleState } from './services/style.service';
-import { getState, save } from './services/store';
+import { save } from './services/store';
 import { Binding, Component, appendComponent, when } from './services/render.service';
 
-const state = getState<AppState>();
+const persons = [
+  {
+    firstName: 'Max',
+    lastName: 'Brook'
+  },
+  {
+    firstName: 'Pi',
+    lastName: 'Po'
+  },
+  {
+    firstName: 'Karel',
+    lastName: 'Appel'
+  }
+];
 
-setupReloadOnServerSideEvent();
 boot();
 
 function boot() {
-  state.persons = [
-    {
-      firstName: 'Max',
-      lastName: 'Brook'
-    },
-    {
-      firstName: 'Pi',
-      lastName: 'Po'
-    },
-    {
-      firstName: 'Karel',
-      lastName: 'Appel'
-    }
-  ];
-
-  appendComponent(document.body, personList(state.persons));
+  save({ persons });
+  setupReloadOnServerSideEvent();
+  appendComponent(document.body, personList(persons));
 }
 
 export interface ActionButtonOptions extends Partial<HTMLButtonElement> {
@@ -64,14 +63,14 @@ function personList(persons: Person[]): Component {
         text: 'Execute',
         onclick: () => {
           console.log('Clicked on execute button.');
-          const person = state.persons[0];
+          const person = persons[0];
           if (person.firstName === 'Someone else') {
             person.firstName = 'Simon the king';
           } else {
             person.firstName = 'Someone else';
           }
           person.isSelected = true;
-          save(state);
+          save({ persons });
         }
       }),
       {

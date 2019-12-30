@@ -130,11 +130,11 @@
         "signature": "136063fa225bf78267440214385cb86842044365379dbe09dedeb3b0881cefe4"
       },
       "./src/services/render.service.ts": {
-        "version": "11b254eb6b6092051d83ea620fcdfc5c192a17c279f4029e1aba6eb51a9280fd",
-        "signature": "b0a425611323c8431eefd6bcce80e8c75f70899961df22eedcde4ffdae2b572b"
+        "version": "65ec44614bc50409e6d12071b6f7c12536fc8f8f60e33ee008e785bd2d984beb",
+        "signature": "41aab31ef6d51edd1616cf49a2cc6285f14fbb77bc51e8cca4ce6584133f32bd"
       },
       "./src/app.ts": {
-        "version": "80b92d9470d1ad371292aa7fdec0919f369fef3ddc5ce4d40ba1558f18ff1a98",
+        "version": "3a1588572b8e80fcb9ed8e020649794a92d78eb4db955d830b91c35e3b1f7a1c",
         "signature": "f5adef7588f0b698a682d7640e85bfee68a8222d5d8f7fe6a59e49997a250ead"
       },
       "./node_modules/@types/node/globals.d.ts": {
@@ -1284,7 +1284,6 @@
       "./src/services/server-side-events.service.ts",
       "./src/services/store.ts",
       "./src/services/style.service.ts",
-      "./src/app.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -1338,7 +1337,8 @@
       "./node_modules/@types/jasmine/ts3.1/index.d.ts",
       "./node_modules/@types/strip-bom/index.d.ts",
       "./node_modules/@types/strip-json-comments/index.d.ts",
-      "./src/services/render.service.ts"
+      "./src/services/render.service.ts",
+      "./src/app.ts"
     ]
   },
   "version": "3.7.2"
