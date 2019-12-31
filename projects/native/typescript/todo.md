@@ -2,6 +2,8 @@
 - ESLint
 - Karma for frontend testing
 - Native jasmine for backend testing
+- Add .getStoreId() function to each object in the store.
+  - Each 
 
 
 

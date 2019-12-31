@@ -29,11 +29,10 @@ export function appendComponentAttributes(childElement: HTMLElement, component: 
         renderBindings.push({
           attributeName: destProp,
           binding: sourceValue,
-          childElement,
-          component,
+          element: childElement,
           oldDeps: Object.assign({}, sourceValue.deps),
           render: renderAttributeBinding
-        });
+        } as AttributeRenderBinding<any, any>);
 
         sourceValue = sourceValue.fn(sourceValue.deps);
       }
@@ -44,27 +43,30 @@ export function appendComponentAttributes(childElement: HTMLElement, component: 
 }
 
 export function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any, Component[]>) {
-  const components = binding.fn(binding.deps);
-  if (!components) {
-    return;
-  }
+  
 
   // Setup re-rendering, when value changes in the store.
-  renderBindings.push({
+  const renderBinding: ComponentsRenderBinding<any, any> = {
     binding,
-    childElement,
-    component,
+    components: [],
+    element: childElement,
     oldDeps: Object.assign({}, binding.deps),
-    render: renderAttributeBinding
-  });
+    render: renderComponentsBinding
+  };
+  renderBindings.push(renderBinding);
+  renderComponentsBinding(renderBinding);
 }
-export function renderComponentsBinding(childElement: HTMLElement, components: Component[]) {
-  const total = components.length;
-  for (let i = 0; i < total; i++) {
-    const component = components[i];
-    appendComponent(childElement, component);
-  }
-}
+export function renderComponentsBinding<T, V>(binding: ComponentsRenderBinding<T, V>) {
+         const components = (binding.binding.fn(binding.binding.deps) as unknown) as Component[];
+         if (!components) {
+           return;
+         }
+         const total = components.length;
+         for (let i = 0; i < total; i++) {
+           const component = components[i];
+           appendComponent(binding.element, component);
+         }
+       }
 
 export function appendComponentChildren(childElement: HTMLElement, component: Component) {
   if (component.children && component.children.length > 0) {
@@ -80,13 +82,13 @@ export function appendComponentChildren(childElement: HTMLElement, component: Co
   }
 }
 
-export function appendComponentClasses(childElement: HTMLElement, component: Component) {
+export function appendComponentClasses(element: HTMLElement, component: Component) {
   if (component.classes && component.classes.length > 0) {
     const total = component.classes.length;
     for (let i = 0; i < total; i++) {
       const cssClass = component.classes[i];
       if (typeof cssClass == 'string') {
-        childElement.classList.add(cssClass);
+        element.classList.add(cssClass);
         continue;
       }
 
@@ -94,7 +96,7 @@ export function appendComponentClasses(childElement: HTMLElement, component: Com
         // setup re-rendering, when value changes in the store.
         const renderBinding = {
           binding: cssClass,
-          childElement,
+          element,
           component,
           oldDeps: Object.assign({}, cssClass.deps),
           render: renderCssClassBinding
@@ -126,26 +128,26 @@ export function OnStateChange(): void {
   }
 }
 
-export function renderAttributeBinding<T, V>(binding: RenderBinding<T, V>) {
-  if (!binding.attributeName) {
-    return;
-  }
-  (binding.childElement as any)[binding.attributeName] = binding.binding.fn(binding.binding.deps);
-}
+export function renderAttributeBinding<T, V>(binding: AttributeRenderBinding<T, V>) {
+         if (!binding.attributeName) {
+           return;
+         }
+         (binding.element as any)[binding.attributeName] = binding.binding.fn(binding.binding.deps);
+       }
 
 export function renderCssClassBinding<T, V>(binding: RenderBinding<T, V>) {
   const whenBinding = binding.binding as WhenBinding<T, string>;
   const cssClass = whenBinding.fn(whenBinding.deps);
   if (whenBinding.falseValue && typeof whenBinding.falseValue === 'string') {
-    binding.childElement.classList.remove(whenBinding.falseValue);
+    binding.element.classList.remove(whenBinding.falseValue);
   }
 
   if (whenBinding.trueValue && typeof whenBinding.trueValue === 'string') {
-    binding.childElement.classList.remove(whenBinding.trueValue);
+    binding.element.classList.remove(whenBinding.trueValue);
   }
 
   if (cssClass && typeof cssClass === 'string') {
-    binding.childElement.classList.add(cssClass);
+    binding.element.classList.add(cssClass);
   }
 }
 
@@ -202,10 +204,16 @@ export interface WhenBinding<T, V> extends Binding<T, V> {
 }
 
 interface RenderBinding<T, V> {
-  attributeName?: string;
   binding: Binding<T, V>;
-  childElement: HTMLElement;
-  component: Component;
+  element: HTMLElement;
   oldDeps: T; // Is used to detect changes.
   render: (binding: RenderBinding<T, V>) => void;
+}
+
+interface AttributeRenderBinding<T, V> extends RenderBinding<T,V> {
+  attributeName: string;
+}
+
+interface ComponentsRenderBinding<T, V> extends RenderBinding<T,V> {
+  renderedElements: HTMLElement[];
 }
