@@ -1,13 +1,27 @@
-# This script contains git commandline tasks
-# Usage: Set correct location and branch name before running tasks.
-# Note: When you set a variable this variable will be available as long as you don't close the integrated terminal.
+# This script contains git snippets.
 
-# Locations
-Set-Location "C:\Dev\rli-dev"
+
+function CheckForUpdates
+{
+    # Check for outdated packages.
+    npm outdated --depth=0
+
+    # update git on windows
+    git update-git-for-windows
+}
 
 # Branch names
 $branch_name = "feature/my-feature-branch"
-Write-Host "branch nane: $branch_name"
+Write-Host "branch name: $branch_name"
+
+function ConnectToGitWithSshOnWindows {
+    # Before you generate a new private / public key pair, make a backup of the existing keys in: C:\Users\roelv\.ssh
+    # Generate a new private key file and a new public key file, by executing the following command.
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+    # Clone repository
+    git clone ssh://git@git.my-domain.nl/my-server/my-repo.git
+}
 
 function CreateFeatureBranch {
     git checkout "master"

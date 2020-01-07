@@ -42,31 +42,35 @@ export function appendComponentAttributes(childElement: HTMLElement, component: 
   }
 }
 
-export function appendComponentsBinding(childElement: HTMLElement, binding: Binding<any, Component[]>) {
-  
-
+export function appendComponentsBinding(element: HTMLElement, binding: Binding<any, Component[]>) {
   // Setup re-rendering, when value changes in the store.
   const renderBinding: ComponentsRenderBinding<any, any> = {
     binding,
     components: [],
-    element: childElement,
+    element,
     oldDeps: Object.assign({}, binding.deps),
     render: renderComponentsBinding
   };
   renderBindings.push(renderBinding);
   renderComponentsBinding(renderBinding);
 }
+
 export function renderComponentsBinding<T, V>(binding: ComponentsRenderBinding<T, V>) {
-         const components = (binding.binding.fn(binding.binding.deps) as unknown) as Component[];
-         if (!components) {
-           return;
-         }
-         const total = components.length;
-         for (let i = 0; i < total; i++) {
-           const component = components[i];
-           appendComponent(binding.element, component);
-         }
-       }
+  const components = (binding.binding.fn(binding.binding.deps) as unknown) as Component[];
+  if (!components) {
+    return;
+  }
+
+  // Remove bindings from child components.
+
+  // Remove child elements.
+
+  const total = components.length;
+  for (let i = 0; i < total; i++) {
+    const component = components[i];
+    appendComponent(binding.element, component);
+  }
+}
 
 export function appendComponentChildren(childElement: HTMLElement, component: Component) {
   if (component.children && component.children.length > 0) {
@@ -129,11 +133,11 @@ export function OnStateChange(): void {
 }
 
 export function renderAttributeBinding<T, V>(binding: AttributeRenderBinding<T, V>) {
-         if (!binding.attributeName) {
-           return;
-         }
-         (binding.element as any)[binding.attributeName] = binding.binding.fn(binding.binding.deps);
-       }
+  if (!binding.attributeName) {
+    return;
+  }
+  (binding.element as any)[binding.attributeName] = binding.binding.fn(binding.binding.deps);
+}
 
 export function renderCssClassBinding<T, V>(binding: RenderBinding<T, V>) {
   const whenBinding = binding.binding as WhenBinding<T, string>;
@@ -210,10 +214,10 @@ interface RenderBinding<T, V> {
   render: (binding: RenderBinding<T, V>) => void;
 }
 
-interface AttributeRenderBinding<T, V> extends RenderBinding<T,V> {
+interface AttributeRenderBinding<T, V> extends RenderBinding<T, V> {
   attributeName: string;
 }
 
-interface ComponentsRenderBinding<T, V> extends RenderBinding<T,V> {
+interface ComponentsRenderBinding<T, V> extends RenderBinding<T, V> {
   renderedElements: HTMLElement[];
 }

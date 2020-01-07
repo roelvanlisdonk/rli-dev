@@ -1,9 +1,25 @@
 # TODO
+
+## General
 - ESLint
 - Karma for frontend testing
 - Native jasmine for backend testing
+
+## Front-end
 - Add .getStoreId() function to each object in the store.
-  - Each 
+- Add when attribute binding, this binding will add or remove the element from the dom.
+- Change store, it should contain 2 maps, state en previousState.
+  When an object is upserted in the state a copy is upserted in the previousState
+  On upsert, bindings depended on the upserted object are executed.
+- Store.save, should traverse the given object tree en store every object in the maps.
+  If you want to update an array, just add a .getStoreId() function to the object, that returns the same store id.
+- For the save you can add .getDepFields() function to the objects, to improve performance
+- When a given object or array in the given object tree for save, is not a StoreItem,
+  it will be converted to a StoreItem and saved in state and previousState. 
+- Change renderComponentsBinding, it should save the added elements and bindings.
+- Change renderComponentsBinding, it should remove elements and bindings
+- Change binding.deps, it should be an store item and optional fields
+  NOTE: a store item can be an object or an array, but it will have a getStoreId().
 
 
 
