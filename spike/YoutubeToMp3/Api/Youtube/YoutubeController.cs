@@ -34,16 +34,16 @@ namespace YoutubeToMp3.Api.Youtube
             var vid = youtube.GetVideo(request.YoutubeUrl);
 
             await _messageHub.SendMessage("SomeUser", "Save the video to the filesystem");
-            System.IO.File.WriteAllBytes(Path.Combine(source, vid.FullName), vid.GetBytes());
-
-            var inputFile = new MediaFile { Filename = source + vid.FullName };
-            var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
+            string mp4FilePath = Path.Combine(source, vid.FullName);
+            System.IO.File.WriteAllBytes(mp4FilePath, vid.GetBytes());
 
             await _messageHub.SendMessage("SomeUser", "Convert video to mp3");
             using (var engine = new Engine())
             {
+                var inputFile = new MediaFile { Filename = mp4FilePath };
                 engine.GetMetadata(inputFile);
 
+                var outputFile = new MediaFile { Filename = $"{mp4FilePath}.mp3" };
                 engine.Convert(inputFile, outputFile);
             }
 

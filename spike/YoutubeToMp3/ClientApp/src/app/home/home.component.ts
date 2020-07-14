@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   }
 
   downloadFromYoutube() {
-    this.http.post('/Build/DownloadFromYoutube', {
+    this.http.post<DownloadFromYoutubeRequest>('/Youtube/DownloadAsMp3', {
+      youtubeUrl: this.youtubeUrl.value
     }).subscribe(
       (response) => {
         console.info(response);
