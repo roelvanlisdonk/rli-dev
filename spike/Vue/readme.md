@@ -25,3 +25,4 @@ Change directory naar "vue2-spike" folder
 - Run: npm install
 - Voeg een "vue": "vue", regel toe aan de scripts in de package.json
 - Run: npm run vue add vuetify
+- Fix bug in "\vue2-spike\src\plugins\vuetify.ts" change "" to "import Vuetify from 'vuetify/lib';"

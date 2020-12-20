@@ -35,9 +35,17 @@
         </h2>
 
         <v-row justify="center">
-          <a v-for="(link, i) in importantLinks" :key="i" :href="link.href" class="subheading mx-3" target="_blank">
-            {{ link.text }}
-          </a>
+          <p>{{ $store.state.count }}</p>
+          <p><button type="button" @click="increment">Increment</button></p>
+          <p><v-text-field
+            label="Regular"
+            v-model="$store.state.count"
+          ></v-text-field></p>
+          <p>
+            <a v-for="(link, i) in importantLinks" :key="i" :href="link.href" class="subheading mx-3" target="_blank">
+              {{ link.text }}
+            </a>
+          </p>
         </v-row>
       </v-col>
 
@@ -113,6 +121,12 @@ export default Vue.extend({
         href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions'
       }
     ]
-  })
+  }),
+  methods: {
+    increment() {
+      this.$store.commit('increment');
+      console.log(this.$store.state.count);
+    }
+}
 });
 </script>
