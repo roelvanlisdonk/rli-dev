@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "vue3spike",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli": "4.5.9"
+  },
+  "scripts": {
+    "vue": "vue"
+  }
+}
